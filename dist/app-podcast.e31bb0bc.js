@@ -32800,18 +32800,66 @@ if ("development" === 'production') {
 } else {
   module.exports = require('./cjs/react-dom.development.js');
 }
-},{"./cjs/react-dom.development.js":"node_modules/react-dom/cjs/react-dom.development.js"}],"index.js":[function(require,module,exports) {
+},{"./cjs/react-dom.development.js":"node_modules/react-dom/cjs/react-dom.development.js"}],"src/services/api/getPodcastList.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+const getPodcastList = () => {
+  const apiKey = "be61808705057db2b8bb4afc82ef5b1c";
+  return fetch(`https://itunes.apple.com/us/rss/toppodcasts/limit=100/genre=1310/json`).then(response => response.json());
+};
+
+var _default = getPodcastList;
+exports.default = _default;
+},{}],"src/App.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _getPodcastList = _interopRequireDefault(require("./services/api/getPodcastList"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+const App = () => {
+  console.log("start");
+
+  const handleGetPodcastList = async () => {
+    const PodcastList = await (0, _getPodcastList.default)();
+    console.log(PodcastList);
+  };
+
+  _react.default.useEffect(() => {
+    handleGetPodcastList(); // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return /*#__PURE__*/_react.default.createElement("h1", null, "hello");
+};
+
+var _default = App;
+exports.default = _default;
+},{"react":"node_modules/react/index.js","./services/api/getPodcastList":"src/services/api/getPodcastList.js"}],"index.js":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
 
 var _reactDom = _interopRequireDefault(require("react-dom"));
 
+var _App = _interopRequireDefault(require("./src/App"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // index.js
-_reactDom.default.render( /*#__PURE__*/_react.default.createElement("h1", null, "Hello world!"), document.getElementById("root"));
-},{"react":"node_modules/react/index.js","react-dom":"node_modules/react-dom/index.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+_reactDom.default.render( /*#__PURE__*/_react.default.createElement(_App.default, null), document.getElementById("root"));
+},{"react":"node_modules/react/index.js","react-dom":"node_modules/react-dom/index.js","./src/App":"src/App.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -32839,7 +32887,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54057" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56001" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
