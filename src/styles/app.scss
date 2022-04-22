@@ -1,0 +1,36 @@
+$background: whitesmoke !default;
+$color: #aaa !default;
+$inverted-background: #747fad !default;
+$inverted-color: #fff !default;
+$shadow-color: #000 !default;
+
+$button-background: whitesmoke !default;
+$button-color: #747fad !default;
+
+$transition: all cubic-bezier(0.26, -0.42, 0.29, 1.06) 0.4s;
+
+:export {
+  baseAnimationDuration: $baseAnimationDurationValue * 1000;
+}
+
+// Utilitys
+.is-disabled {
+  opacity: 0.3 !important;
+  pointer-events: none !important;
+}
+.is-animable {
+  transition: $transition !important;
+}
+
+@mixin center_flex($direction:row) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: $direction;
+}
+
+@import "fonts";
+@import "reset";
+
+@import "layout";
+@import "modules";

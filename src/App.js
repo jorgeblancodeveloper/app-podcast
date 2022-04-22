@@ -1,10 +1,14 @@
 import React from "react";
+ import LandingPage from "./views/LandingPage/LandingPage";
+ import {updatePodcastLlist } from "./services/redux/actions";
+ import { connect } from "react-redux";
 import getPodcastList from "./services/api/getPodcastList";
-const App = () => {
+const App = ({updatePodcastLlist}) => {
   console.log("start");
   const handleGetPodcastList = async () => {
     const PodcastList = await getPodcastList();
     console.log(PodcastList);
+    updatePodcastLlist(PodcastList)
   };
 
   React.useEffect(() => {
@@ -12,7 +16,23 @@ const App = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return <h1>hello</h1>;
+  return (
+    <main>
+      <div className="app">
+        <LandingPage />
+      </div>
+    </main>
+  );
 };
 
-export default App;
+// export default App;
+
+const mapStateToProps = (state) => {
+    return {
+        podcastList: state.podcastList,
+    };
+  };
+  export default connect(mapStateToProps, { updatePodcastLlist })(
+    App
+  );
+  
