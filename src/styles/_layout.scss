@@ -8,13 +8,12 @@ body {
   background: $background;
   color: $color;
   font-family: "Ropa Sans", sans-serif;
-  font-size: $fontSize;
+  font-size:$fontSize;
 }
 
 #root {
   height: 100vh;
-  max-height: 1200px;
-  overflow: hidden;
+
 }
 
 .main {

@@ -1,0 +1,36 @@
+
+.podcaster-card{
+
+  background: #fefefe;
+  margin:auto;
+  padding: 1.6em;
+  width:auto;
+  max-width: 200px;
+font-size:0.8em;
+
+filter: $dropShadow;;
+  &__image{
+    margin:auto;
+    width: min-content;
+  }
+  &__row{
+    margin:1em 0;
+    background:#eee;
+    height: 1px;
+    border: none;
+  }
+  &__title{
+    font-weight:bold
+  }
+  &__subtitle{
+    font-weight:normal;
+    padding-top:0.5em;
+    font-style: italic;
+  }
+  &__description{
+    padding-top:0.5em;
+    font-style: italic;
+    line-height: 1.2;
+  }
+  padding-top:0.5em;
+}

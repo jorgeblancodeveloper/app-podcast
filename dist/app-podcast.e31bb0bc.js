@@ -35343,7 +35343,80 @@ Object.keys(_exports).forEach(function (key) {
 // with standard React renderers (ReactDOM, React Native)
 
 (0, _batch.setBatch)(_reactBatchedUpdates.unstable_batchedUpdates);
-},{"use-sync-external-store/shim":"node_modules/use-sync-external-store/shim/index.js","use-sync-external-store/shim/with-selector":"node_modules/use-sync-external-store/shim/with-selector.js","./utils/reactBatchedUpdates":"node_modules/react-redux/es/utils/reactBatchedUpdates.js","./utils/batch":"node_modules/react-redux/es/utils/batch.js","./hooks/useSelector":"node_modules/react-redux/es/hooks/useSelector.js","./components/connect":"node_modules/react-redux/es/components/connect.js","./exports":"node_modules/react-redux/es/exports.js"}],"src/views/LandingPage/LandingPage.js":[function(require,module,exports) {
+},{"use-sync-external-store/shim":"node_modules/use-sync-external-store/shim/index.js","use-sync-external-store/shim/with-selector":"node_modules/use-sync-external-store/shim/with-selector.js","./utils/reactBatchedUpdates":"node_modules/react-redux/es/utils/reactBatchedUpdates.js","./utils/batch":"node_modules/react-redux/es/utils/batch.js","./hooks/useSelector":"node_modules/react-redux/es/hooks/useSelector.js","./components/connect":"node_modules/react-redux/es/components/connect.js","./exports":"node_modules/react-redux/es/exports.js"}],"src/components/PodcasterCard/PodcasterCard.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+const PodcasterCard = _ref => {
+  let {
+    title,
+    autor,
+    description,
+    image
+  } = _ref;
+  return /*#__PURE__*/_react.default.createElement("div", {
+    className: "podcaster-card"
+  }, /*#__PURE__*/_react.default.createElement("div", {
+    className: "podcaster-card__image"
+  }, /*#__PURE__*/_react.default.createElement("img", {
+    src: image
+  })), /*#__PURE__*/_react.default.createElement("hr", {
+    className: "podcaster-card__row"
+  }), /*#__PURE__*/_react.default.createElement("div", {
+    className: "podcaster-card__title"
+  }, title, /*#__PURE__*/_react.default.createElement("div", {
+    className: "podcaster-card__subtitle"
+  }, "by ", autor)), /*#__PURE__*/_react.default.createElement("hr", {
+    className: "podcaster-card__row"
+  }), /*#__PURE__*/_react.default.createElement("b", null, "Description:"), /*#__PURE__*/_react.default.createElement("div", {
+    className: "podcaster-card__description"
+  }, " ", description));
+};
+
+var _default = PodcasterCard;
+exports.default = _default;
+},{"react":"node_modules/react/index.js"}],"src/components/PodcastThumb/PodcastThumb.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+const PodcasterThumb = _ref => {
+  let {
+    title,
+    autor,
+    image
+  } = _ref;
+  return /*#__PURE__*/_react.default.createElement("div", {
+    className: "podcast-thumb"
+  }, /*#__PURE__*/_react.default.createElement("div", {
+    className: "podcast-thumb__image"
+  }, /*#__PURE__*/_react.default.createElement("img", {
+    src: image
+  })), /*#__PURE__*/_react.default.createElement("div", {
+    className: "podcast-thumb__title"
+  }, title), /*#__PURE__*/_react.default.createElement("div", {
+    className: "podcast-thumb__subtitle"
+  }, "Autor: ", autor));
+};
+
+var _default = PodcasterThumb;
+exports.default = _default;
+},{"react":"node_modules/react/index.js"}],"src/views/LandingPage/LandingPage.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -35355,11 +35428,44 @@ var _react = _interopRequireDefault(require("react"));
 
 var _reactRedux = require("react-redux");
 
+var _PodcasterCard = _interopRequireDefault(require("../../components/PodcasterCard/PodcasterCard"));
+
+var _PodcastThumb = _interopRequireDefault(require("../../components/PodcastThumb/PodcastThumb"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-const LandingPage = () => /*#__PURE__*/_react.default.createElement("div", {
-  className: "select-container"
-}, " repatata");
+const LandingPage = _ref => {
+  let {
+    podcastList
+  } = _ref;
+
+  _react.default.useEffect(() => {
+    if (podcastList) console.log("WW", podcastList?.feed?.entry[0]["im:image"][0]); // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [podcastList]);
+
+  const index = 7;
+  const thumbList = podcastList && podcastList?.feed?.entry.map(e => {
+    return /*#__PURE__*/_react.default.createElement(_PodcastThumb.default, {
+      title: e.title.label,
+      autor: e["im:artist"].label,
+      image: e["im:image"][2].label
+    });
+  });
+  return /*#__PURE__*/_react.default.createElement("div", {
+    className: "landing-page"
+  }, " ", /*#__PURE__*/_react.default.createElement(_PodcasterCard.default, {
+    title: podcastList?.feed?.entry[index].title.label,
+    autor: podcastList?.feed?.entry[index]["im:artist"].label,
+    description: podcastList?.feed?.entry[index].summary.label,
+    image: podcastList?.feed?.entry[index]["im:image"][2].label
+  }), /*#__PURE__*/_react.default.createElement("div", {
+    className: "podcast-list"
+  }, /*#__PURE__*/_react.default.createElement(_PodcastThumb.default, {
+    title: podcastList?.feed?.entry[index].title.label,
+    autor: podcastList?.feed?.entry[index]["im:artist"].label,
+    image: podcastList?.feed?.entry[index]["im:image"][2].label
+  }), thumbList));
+};
 
 const mapStateToProps = state => {
   return {
@@ -35371,7 +35477,7 @@ var _default = (0, _reactRedux.connect)(mapStateToProps, {})(LandingPage); // ex
 
 
 exports.default = _default;
-},{"react":"node_modules/react/index.js","react-redux":"node_modules/react-redux/es/index.js"}],"src/services/redux/actions.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","react-redux":"node_modules/react-redux/es/index.js","../../components/PodcasterCard/PodcasterCard":"src/components/PodcasterCard/PodcasterCard.js","../../components/PodcastThumb/PodcastThumb":"src/components/PodcastThumb/PodcastThumb.js"}],"src/services/redux/actions.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -35404,7 +35510,79 @@ const getPodcastList = () => {
 
 var _default = getPodcastList;
 exports.default = _default;
-},{}],"src/App.js":[function(require,module,exports) {
+},{}],"node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+var bundleURL = null;
+
+function getBundleURLCached() {
+  if (!bundleURL) {
+    bundleURL = getBundleURL();
+  }
+
+  return bundleURL;
+}
+
+function getBundleURL() {
+  // Attempt to find the URL of the current script and use that as the base URL
+  try {
+    throw new Error();
+  } catch (err) {
+    var matches = ('' + err.stack).match(/(https?|file|ftp|chrome-extension|moz-extension):\/\/[^)\n]+/g);
+
+    if (matches) {
+      return getBaseURL(matches[0]);
+    }
+  }
+
+  return '/';
+}
+
+function getBaseURL(url) {
+  return ('' + url).replace(/^((?:https?|file|ftp|chrome-extension|moz-extension):\/\/.+)?\/[^/]+(?:\?.*)?$/, '$1') + '/';
+}
+
+exports.getBundleURL = getBundleURLCached;
+exports.getBaseURL = getBaseURL;
+},{}],"node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
+var bundle = require('./bundle-url');
+
+function updateLink(link) {
+  var newLink = link.cloneNode();
+
+  newLink.onload = function () {
+    link.remove();
+  };
+
+  newLink.href = link.href.split('?')[0] + '?' + Date.now();
+  link.parentNode.insertBefore(newLink, link.nextSibling);
+}
+
+var cssTimeout = null;
+
+function reloadCSS() {
+  if (cssTimeout) {
+    return;
+  }
+
+  cssTimeout = setTimeout(function () {
+    var links = document.querySelectorAll('link[rel="stylesheet"]');
+
+    for (var i = 0; i < links.length; i++) {
+      if (bundle.getBaseURL(links[i].href) === bundle.getBundleURL()) {
+        updateLink(links[i]);
+      }
+    }
+
+    cssTimeout = null;
+  }, 50);
+}
+
+module.exports = reloadCSS;
+},{"./bundle-url":"node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"src/styles/app.scss":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js"}],"src/App.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -35421,6 +35599,8 @@ var _actions = require("./services/redux/actions");
 var _reactRedux = require("react-redux");
 
 var _getPodcastList = _interopRequireDefault(require("./services/api/getPodcastList"));
+
+require("./styles/app.scss");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -35457,7 +35637,7 @@ var _default = (0, _reactRedux.connect)(mapStateToProps, {
 })(App);
 
 exports.default = _default;
-},{"react":"node_modules/react/index.js","./views/LandingPage/LandingPage":"src/views/LandingPage/LandingPage.js","./services/redux/actions":"src/services/redux/actions.js","react-redux":"node_modules/react-redux/es/index.js","./services/api/getPodcastList":"src/services/api/getPodcastList.js"}],"node_modules/@babel/runtime/helpers/esm/defineProperty.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","./views/LandingPage/LandingPage":"src/views/LandingPage/LandingPage.js","./services/redux/actions":"src/services/redux/actions.js","react-redux":"node_modules/react-redux/es/index.js","./services/api/getPodcastList":"src/services/api/getPodcastList.js","./styles/app.scss":"src/styles/app.scss"}],"node_modules/@babel/runtime/helpers/esm/defineProperty.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -36387,7 +36567,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53934" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55257" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

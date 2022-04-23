@@ -1,8 +1,10 @@
 import React from "react";
  import LandingPage from "./views/LandingPage/LandingPage";
+
  import {updatePodcastLlist } from "./services/redux/actions";
  import { connect } from "react-redux";
 import getPodcastList from "./services/api/getPodcastList";
+ import "./styles/app.scss";
 const App = ({updatePodcastLlist}) => {
   console.log("start");
   const handleGetPodcastList = async () => {
