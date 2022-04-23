@@ -1,14 +1,17 @@
-$background: rgb(218, 216, 216) !default;
+$background-layout: rgb(218, 216, 216) !default;
+$background: #fefefe !default;
+$grey:#bbb;
 $color: #666 !default;
 $inverted-background: #747fad !default;
 $inverted-color: #fff !default;
 $shadow-color: #000 !default;
+$colorTheme:#2F78BC;
 $fontSize:16px;
 $button-background: whitesmoke !default;
 $button-color: #747fad !default;
 $dropShadow:drop-shadow(2px 4px 16px rgba($shadow-color, 0.1));
 $transition: all cubic-bezier(0.26, -0.42, 0.29, 1.06) 0.4s;
-
+$basePadding: 1.6em;
 // :export {
 //   baseAnimationDuration: $baseAnimationDurationValue * 1000;
 // }
@@ -34,6 +37,8 @@ $transition: all cubic-bezier(0.26, -0.42, 0.29, 1.06) 0.4s;
 
 @import "layout";
 @import "modules";
+
+@import "anims";
 .podcast-list{
   display:flex;
   flex-wrap:wrap;

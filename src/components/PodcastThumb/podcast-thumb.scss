@@ -1,5 +1,5 @@
 .podcast-thumb {
-  background: #fefefe;
+  background: $background;
   padding: 1.6em;
   width: 30%;
   max-width: 200px;
@@ -8,27 +8,30 @@
   display: inline-block;
   filter: $dropShadow;
   margin-top: 6em;
-  text-align:center;
+  text-align: center;
   &__image {
     margin: auto;
     width: min-content;
+
     border-radius: 100%;
     overflow: hidden;
     margin: -6em auto 0;
     border: solid 1px #eee;
+    background: $background;
     img {
       max-width: 100px;
       transform: scale(1.1);
+      min-width: 6em;
+      min-height: 6em;
     }
   }
   &__title {
-    padding-top:0.5em;
+    padding-top: 0.5em;
     font-weight: bold;
-    text-transform:uppercase;
+    text-transform: uppercase;
   }
   &__subtitle {
     font-weight: normal;
     padding-top: 0.5em;
-
   }
 }

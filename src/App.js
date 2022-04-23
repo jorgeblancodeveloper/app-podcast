@@ -1,16 +1,18 @@
 import React from "react";
- import LandingPage from "./views/LandingPage/LandingPage";
+import LandingPage from "./views/LandingPage/LandingPage";
 
- import {updatePodcastLlist } from "./services/redux/actions";
- import { connect } from "react-redux";
+import {
+  updatePodcastList,
+  updateFilteredList,
+} from "./services/redux/actions";
+import { connect } from "react-redux";
 import getPodcastList from "./services/api/getPodcastList";
- import "./styles/app.scss";
-const App = ({updatePodcastLlist}) => {
-  console.log("start");
+import "./styles/app.scss";
+const App = ({ updatePodcastList, updateFilteredList }) => {
   const handleGetPodcastList = async () => {
     const PodcastList = await getPodcastList();
-    console.log(PodcastList);
-    updatePodcastLlist(PodcastList)
+    updatePodcastList(PodcastList);
+    updateFilteredList(PodcastList);
   };
 
   React.useEffect(() => {
@@ -30,11 +32,11 @@ const App = ({updatePodcastLlist}) => {
 // export default App;
 
 const mapStateToProps = (state) => {
-    return {
-        podcastList: state.podcastList,
-    };
+  return {
+    podcastList: state.podcastList,
   };
-  export default connect(mapStateToProps, { updatePodcastLlist })(
-    App
-  );
-  
+};
+export default connect(mapStateToProps, {
+  updatePodcastList,
+  updateFilteredList,
+})(App);

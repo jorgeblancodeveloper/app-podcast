@@ -1,15 +1,12 @@
 import React from "react";
 
-const PodcasterThumb = ({ title, autor, image }) => {
+const PodcasterThumb = ({ title, autor, image, ...props }) => {
   return (
-    <div className="podcast-thumb">
+    <div className="podcast-thumb" {...props}>
       <div className="podcast-thumb__image">
-        <img src={image} />
+        <img src={image + "?" + Date.now()} />
       </div>
-      <div className="podcast-thumb__title">
-        {title}
-
-      </div>
+      <div className="podcast-thumb__title">{title}</div>
       <div className="podcast-thumb__subtitle">Autor: {autor}</div>
     </div>
   );

@@ -1,0 +1,17 @@
+.podcast-thumb{
+        transform: scale(0);
+        animation-name: pop_in;
+        animation-fill-mode: forwards;
+        animation-duration: 0.5s;
+}
+@keyframes pop_in {
+    from {
+
+      transform: scale(0);
+    }
+    to {
+        display:inline-block;
+      transform: scale(1);
+    }
+  }
+  

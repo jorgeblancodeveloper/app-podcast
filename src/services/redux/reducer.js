@@ -1,7 +1,8 @@
-import { UPDATE_PODCAST_LIST } from "./actions";
+import { UPDATE_PODCAST_LIST, UPDATE_FILTERED_LIST } from "./actions";
 
 export const INITIAL_STATE = {
-    podcastList: {},
+  podcastList: {},
+  filteredList: {},
 };
 
 const reducer = (state = INITIAL_STATE, action) => {
@@ -10,6 +11,12 @@ const reducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         podcastList: action.payload,
+      };
+
+    case UPDATE_FILTERED_LIST:
+      return {
+        ...state,
+        filteredList: action.payload,
       };
 
     default:

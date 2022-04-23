@@ -1,0 +1,8 @@
+.header{
+    color:$colorTheme;
+    background: $background;
+    padding: $basePadding;
+    &__filter{
+        text-align:right
+    }
+}
