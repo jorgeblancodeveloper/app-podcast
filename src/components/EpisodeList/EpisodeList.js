@@ -9,7 +9,7 @@ const EpisodeList = ({ list, onClickEpisode }) => {
       setFilteredListLength(
         list.map((el, i) => (
           <div
-            className="Episode-list__row"
+            className="episode-list__row"
             key={el + i}
             onClick={() => onClickEpisode(el.trackId)}
           >
@@ -25,11 +25,11 @@ const EpisodeList = ({ list, onClickEpisode }) => {
   }, [list]);
 
   return (
-    <div className="Episode-list">
-      <div className="Episode-list__header">
+    <div className="episode-list">
+      <div className="episode-list__header">
         {`Episodes: ${list && list.length}`}
       </div>
-      <div className="Episode-list__row">
+      <div className="episode-list__row">
         <div style={{ flex: "1" }}> Title</div>
         <div>Date</div> <div>Duration</div>
       </div>

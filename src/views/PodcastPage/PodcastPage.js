@@ -4,29 +4,35 @@ import PodcasterCard from "../../components/PodcasterCard/PodcasterCard";
 import EpisodeList from "../../components/EpisodeList/EpisodeList";
 import getEpisodeList from "../../services/api/getEpisodeList";
 import { useNavigate, useLocation } from "react-router-dom";
-import {setSelectedEpisode} from "../../services/redux/actions/";
-import {getSelectedPodcast} from "../../services/utils";
+import {
+  setSelectedEpisode,
+  setEpisodeList,
+} from "../../services/redux/actions/";
+
 const PodcastPage = (props) => {
-    const { podcastList, selectedPodcast,setSelectedEpisode} = props;
-  let location = useLocation();
+  const {
+    podcastList,
+    selectedPodcast,
+    setSelectedEpisode,
+    setEpisodeList,
+    episodeList,
+  } = props;
+
   let navigate = useNavigate();
-  const [episodeList, setEpisodeList] = React.useState();
-  const podcastId= selectedPodcast.id.attributes["im:id"]
-//   const id = location.pathname.split("/").pop();
-//   const selectedContent = getSelectedPodcast(podcastList,id);
+
+  const podcastId = selectedPodcast.id.attributes["im:id"];
   const handleClick = (epId) => {
-    setSelectedEpisode(epId)
+    setSelectedEpisode(epId);
     navigate(`/podcast/${podcastId}/episode/${epId}`);
   };
-const updateEpisodelist = async () => {
-    
+  const updateEpisodelist = async () => {
     const episodeInfo = await getEpisodeList(podcastId);
+    console.log(JSON.parse(episodeInfo.contents).results);
     setEpisodeList(JSON.parse(episodeInfo.contents).results);
-}
-  
-  React.useEffect( () => {
-    updateEpisodelist()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+  };
+
+  React.useEffect(() => {
+    updateEpisodelist();
   }, []);
 
   return (
@@ -46,7 +52,10 @@ const updateEpisodelist = async () => {
 const mapStateToProps = (state) => {
   return {
     podcastList: state.podcastList,
-    selectedPodcast: state.selectedPodcast
+    selectedPodcast: state.selectedPodcast,
+    episodeList: state.episodeList,
   };
 };
-export default connect(mapStateToProps, {setSelectedEpisode})(PodcastPage);
+export default connect(mapStateToProps, { setSelectedEpisode, setEpisodeList })(
+  PodcastPage
+);

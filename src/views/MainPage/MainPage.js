@@ -12,27 +12,49 @@ import {
 const MainPage = ({ podcastList, filteredList,setSelectedPodcast }) => {
     let navigate = useNavigate();
     let location = useLocation();
-
+    const isMounted = React.createRef(null);
     const handleClick = id=>{
        const selectedContent = getSelectedPodcast(podcastList,id);
         setSelectedPodcast(selectedContent);
         navigate(`/podcast/${id}`);
     }
-  const thumbList =
-    filteredList.length &&
-    filteredList.map((e, i) => {
-      const delay = i * 0.03;
-      return (
-        <PodcastThumb
-        onClick={()=>handleClick(e.id.attributes["im:id"])}
-          key={e.title.label + i}
-          title={e.title.label}
-          autor={e["im:artist"].label}
-          image={e["im:image"][2].label}
-          style={{ animationDelay: `${delay}s` }}
-        />
-      );
-    });
+    const [thumbList, setThumbList] = React.useState([]);
+
+    React.useEffect(() => {
+        if( filteredList.length) {
+            setThumbList(    filteredList.map((e, i) => {
+                const delay = i * 0.03;
+                return (
+                  <PodcastThumb
+                     onClick={()=>handleClick(e.id.attributes["im:id"])}
+                    key={e.title.label + i}
+                    title={e.title.label}
+                    autor={e["im:artist"].label}
+                    image={e["im:image"][2].label}
+                    style={{ animationDelay: `${delay}s` }}
+                  />
+                );
+              }))
+        }
+    
+
+      }, [filteredList]);
+
+//   const thumbList =
+//     filteredList.length &&
+//     filteredList.map((e, i) => {
+//       const delay = i * 0.03;
+//       return (
+//         <PodcastThumb
+//         onClick={()=>handleClick(e.id.attributes["im:id"])}
+//           key={e.title.label + i}
+//           title={e.title.label}
+//           autor={e["im:artist"].label}
+//           image={e["im:image"][2].label}
+//           style={{ animationDelay: `${delay}s` }}
+//         />
+//       );
+//     });
   return (
     <div>
 

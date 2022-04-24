@@ -3,12 +3,7 @@ import PodcastPage from "./views/PodcastPage/PodcastPage";
 import EpisodePage from "./views/EpisodePage/EpisodePage";
 import Header from "./components/Header/Header";
 import MainPage from "./views/MainPage/MainPage";
-import {
-  Route,
-  BrowserRouter,
-  Routes,
-  useParams,
-} from "react-router-dom";
+import { Route, BrowserRouter, Routes, useParams } from "react-router-dom";
 import { setPodcastList, setFilteredList } from "./services/redux/actions";
 import { connect } from "react-redux";
 import getPodcastList from "./services/api/getPodcastList";
@@ -34,7 +29,7 @@ const App = ({ setPodcastList, setFilteredList }) => {
           <Routes>
             <Route exact path="/" element={<MainPage />} />
             <Route exact path="podcast/:id" element={<PodcastPage />}>
-              {" "}
+     
             </Route>
             <Route path="podcast/*" element={<EpisodePage />} />
           </Routes>

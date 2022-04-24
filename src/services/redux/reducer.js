@@ -3,12 +3,14 @@ import {
   SET_FILTERED_LIST,
   SET_SELECTED_PODCAST,
   SET_SELECTED_EPISODE,
+  SET_EPISODE_LIST,
 } from "./actions";
 
 export const INITIAL_STATE = {
   podcastList: {},
   filteredList: {},
   selectedPodcast: {},
+  episodeList:[],
   selectedEpisodeId: "",
 };
 
@@ -30,6 +32,11 @@ const reducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         selectedPodcast: action.payload,
+      };
+          case SET_EPISODE_LIST:
+      return {
+        ...state,
+        episodeList: action.payload,
       };
     case SET_SELECTED_EPISODE:
       return {
