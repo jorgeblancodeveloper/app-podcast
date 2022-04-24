@@ -1,11 +1,6 @@
 .podcaster-card {
-  background: $background;
-  padding: $basePadding;
-  margin: auto;
-  width: auto;
+  @extend %box-content;
   max-width: 200px;
-  font-size: 0.8em;
-
   filter: $dropShadow;
   &__image {
     margin: auto;

@@ -1,0 +1,21 @@
+.Episode-list {
+    flex:1;
+    margin:1em;
+    @extend %box-content;
+&__header{
+    color:$colorTheme;
+    background: $background;
+    padding: $basePadding;
+    font-size:1.8em;
+}
+    &__row{
+        cursor:pointer;
+        justify-content: space-between;
+        padding:1em;
+        display: flex;
+        &:nth-child(even) {
+            background: rgba(0,0,0,0.05);
+        }
+        border-top:1px solid #bbb;
+    }
+}

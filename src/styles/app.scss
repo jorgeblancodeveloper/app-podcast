@@ -15,7 +15,14 @@ $basePadding: 1.6em;
 // :export {
 //   baseAnimationDuration: $baseAnimationDurationValue * 1000;
 // }
+%box-content{
+  background: $background;
+  padding: $basePadding;
+  margin: 1em;
+  width: auto;
 
+  font-size: 0.8em;
+}
 // Utilitys
 .is-disabled {
   opacity: 0.3 !important;
@@ -23,6 +30,10 @@ $basePadding: 1.6em;
 }
 .is-animable {
   transition: $transition !important;
+}
+
+.podcast-page{
+display:flex;
 }
 
 @mixin center_flex($direction:row) {

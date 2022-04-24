@@ -1,15 +1,32 @@
-export const UPDATE_PODCAST_LIST = "UPDATE_PODCAST_LIST";
-export const UPDATE_FILTERED_LIST = "UPDATE_FILTERED_LIST";
-export const updatePodcastList = (data) => {
+export const SET_PODCAST_LIST = "SET_PODCAST_LIST";
+export const SET_FILTERED_LIST = "SET_FILTERED_LIST";
+export const SET_SELECTED_PODCAST = "SET_SELECTED_PODCAST";
+export const SET_SELECTED_EPISODE = "SET_SELECTED_EPISODE";
+
+export const setPodcastList = (data) => {
   return {
-    type: UPDATE_PODCAST_LIST,
+    type: SET_PODCAST_LIST,
     payload: data,
   };
 };
 
-export const updateFilteredList = (data) => {
+export const setFilteredList = (data) => {
   return {
-    type: UPDATE_FILTERED_LIST,
+    type: SET_FILTERED_LIST,
+    payload: data,
+  };
+};
+
+export const setSelectedPodcast = (data) => {
+  return {
+    type: SET_SELECTED_PODCAST,
+    payload: data,
+  };
+};
+
+export const setSelectedEpisode = (data) => {
+  return {
+    type: SET_SELECTED_EPISODE,
     payload: data,
   };
 };

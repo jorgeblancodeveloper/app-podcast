@@ -1,18 +1,24 @@
 import React from "react";
-import LandingPage from "./views/LandingPage/LandingPage";
-
+import PodcastPage from "./views/PodcastPage/PodcastPage";
+import EpisodePage from "./views/EpisodePage/EpisodePage";
+import Header from "./components/Header/Header";
+import MainPage from "./views/MainPage/MainPage";
 import {
-  updatePodcastList,
-  updateFilteredList,
-} from "./services/redux/actions";
+  Route,
+  BrowserRouter,
+  Routes,
+  useParams,
+} from "react-router-dom";
+import { setPodcastList, setFilteredList } from "./services/redux/actions";
 import { connect } from "react-redux";
 import getPodcastList from "./services/api/getPodcastList";
 import "./styles/app.scss";
-const App = ({ updatePodcastList, updateFilteredList }) => {
+const App = ({ setPodcastList, setFilteredList }) => {
+  let { id } = useParams();
   const handleGetPodcastList = async () => {
     const PodcastList = await getPodcastList();
-    updatePodcastList(PodcastList);
-    updateFilteredList(PodcastList);
+    setPodcastList(PodcastList);
+    setFilteredList(PodcastList);
   };
 
   React.useEffect(() => {
@@ -23,7 +29,16 @@ const App = ({ updatePodcastList, updateFilteredList }) => {
   return (
     <main>
       <div className="app">
-        <LandingPage />
+        <Header />
+        <BrowserRouter>
+          <Routes>
+            <Route exact path="/" element={<MainPage />} />
+            <Route exact path="podcast/:id" element={<PodcastPage />}>
+              {" "}
+            </Route>
+            <Route path="podcast/*" element={<EpisodePage />} />
+          </Routes>
+        </BrowserRouter>
       </div>
     </main>
   );
@@ -37,6 +52,6 @@ const mapStateToProps = (state) => {
   };
 };
 export default connect(mapStateToProps, {
-  updatePodcastList,
-  updateFilteredList,
+  setPodcastList,
+  setFilteredList,
 })(App);
