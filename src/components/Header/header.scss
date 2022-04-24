@@ -1,8 +1,7 @@
-.header{
-    color:$colorTheme;
-    background: $background;
-    padding: $basePadding;
-    &__filter{
-        text-align:right
-    }
+.header {
+  color: $colorTheme;
+  @extend %box-content;
+  &__title {
+    font-size: 1.8em;
+  }
 }

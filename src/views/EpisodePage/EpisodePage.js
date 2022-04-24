@@ -20,9 +20,9 @@ const EpisodePage = ({
         image={selectedPodcast["im:image"][2].label}
       />
       <EpisodePlayer
-        title={getEpisodeInfoFromId.trackName}
-        description={getEpisodeInfoFromId.description}
-        path={getEpisodeInfoFromId.episodeUrl}
+        title={getEpisodeInfoFromId?.trackName}
+        description={getEpisodeInfoFromId?.description}
+        path={getEpisodeInfoFromId?.episodeUrl}
       />
     </div>
   );
@@ -35,3 +35,4 @@ const mapStateToProps = (state) => {
   };
 };
 export default connect(mapStateToProps, {})(EpisodePage);
+

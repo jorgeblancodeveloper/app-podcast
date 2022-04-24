@@ -1,24 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Separator } from "../../elements/Separator/Separator";
-import { setFilteredList } from "../../services/redux/actions/";
-import { FilterModule } from "../../components/FilterModule/FilterModule";
-const Header = ({ podcastList, setFilteredList }) => {
-  const handleFilteredList = (filteredData) => {
-    setFilteredList(filteredData);
-  };
+
+const Header = ({ podcastList }) => {
   return (
     <div className="header">
-      Podcaster
-      <Separator />
-      <div className="header__filter">
-        {podcastList?.feed?.entry.length && (
-          <FilterModule
-            list={podcastList?.feed?.entry}
-            setFiltered={handleFilteredList}
-          />
-        )}
-      </div>
+      <div className="header__title">Podcaster</div>
     </div>
   );
 };
@@ -27,4 +13,4 @@ const mapStateToProps = (state) => {
     podcastList: state.podcastList,
   };
 };
-export default connect(mapStateToProps, { setFilteredList })(Header);
+export default connect(mapStateToProps, {})(Header);

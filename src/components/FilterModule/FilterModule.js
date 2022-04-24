@@ -1,5 +1,6 @@
 import React from "react";
 import { Input } from "../../elements/Input/Input";
+import { Separator } from "../../elements/Separator/Separator";
 export const FilterModule = ({ list, setFiltered }) => {
   const [filteredListLength, setFilteredListLength] = React.useState(0);
   React.useEffect(() => {
@@ -14,7 +15,8 @@ export const FilterModule = ({ list, setFiltered }) => {
     setFiltered(filtered);
   };
   return (
-    <div className="">
+    <div className="filter-module">
+        <Separator/>
       <div className="filter-module__count">{filteredListLength}</div>
       <Input handleChange={handleChange} placeholder="Filter podcasts..." />
     </div>

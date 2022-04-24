@@ -8,19 +8,43 @@ import { setPodcastList, setFilteredList } from "./services/redux/actions";
 import { connect } from "react-redux";
 import getPodcastList from "./services/api/getPodcastList";
 import "./styles/app.scss";
-const App = ({ setPodcastList, setFilteredList }) => {
-  let { id } = useParams();
+const App = ({ setPodcastList, setFilteredList, fullState, podcastList }) => {
+  const getDifferenceTime = (data) => {
+    const date1 = new Date();
+    const date2 = new Date(data);
+    const diffTime = Math.abs(date2 - date1);
+    const diffMin = diffTime / (1000 * 60);
+    // return diffTime / (1000 * 60 * 60 * 24);
+    return diffMin;
+  };
+
+  React.useEffect(() => {
+    const savedSession = JSON.parse(localStorage.getItem("myPodcastSession"));
+    if (savedSession && getDifferenceTime(savedSession?.date) > 1) {
+      setPodcastList(savedSession.podcastList);
+      setFilteredList(savedSession.podcastList);
+    } else {
+      handleGetPodcastList();
+    }
+    return () => {};
+  }, []);
+
   const handleGetPodcastList = async () => {
     const PodcastList = await getPodcastList();
     setPodcastList(PodcastList);
     setFilteredList(PodcastList);
+    console.log(JSON.stringify(podcastList));
+    localStorage.setItem(
+      "myPodcastSession",
+      JSON.stringify({ date: new Date(), podcastList: PodcastList })
+    );
   };
 
   React.useEffect(() => {
-    handleGetPodcastList();
+    // handleGetPodcastList();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
+  console.log("WW", fullState);
   return (
     <main>
       <div className="app">
@@ -42,6 +66,7 @@ const App = ({ setPodcastList, setFilteredList }) => {
 const mapStateToProps = (state) => {
   return {
     podcastList: state.podcastList,
+    fullState: state,
   };
 };
 export default connect(mapStateToProps, {

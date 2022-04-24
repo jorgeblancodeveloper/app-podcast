@@ -2,8 +2,6 @@ import React from "react";
 import { millisToMinutesAndSeconds } from "../../services/utils";
 import { MediaPlayer } from "../../elements/MediaPlayer/MediaPlayer";
 const EpisodePlayer = ({ title, description, path }) => {
-  const [filteredListLength, setFilteredListLength] = React.useState();
-
   React.useEffect(() => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -11,7 +9,12 @@ const EpisodePlayer = ({ title, description, path }) => {
   return (
     <div className="episode-player">
       <div className="episode-player__header"> {title}</div>
-      <div className="episode-player__row"> {description}</div>
+      {description && (
+        <div
+          className="episode-player__row"
+          dangerouslySetInnerHTML={{ __html: description }}
+        />
+      )}
       <MediaPlayer path={path} />
     </div>
   );
