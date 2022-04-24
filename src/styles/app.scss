@@ -50,9 +50,17 @@ display:flex;
 @import "modules";
 
 @import "anims";
+.app{
+  width:calc(100% - 2em);
+  max-width:1200px;
+  margin:2em auto;
+}
+
 .podcast-list{
   display:flex;
   flex-wrap:wrap;
+  margin:auto;
+
 }
 .podcast-list > *{
   align-self: baseline;

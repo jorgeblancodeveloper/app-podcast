@@ -31,9 +31,3 @@ export const setEpisodeList = (data) => {
   };
 };
 
-export const setSelectedEpisode = (data) => {
-  return {
-    type: SET_SELECTED_EPISODE,
-    payload: data,
-  };
-};

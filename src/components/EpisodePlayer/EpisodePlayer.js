@@ -1,21 +1,25 @@
 import React from "react";
-import { millisToMinutesAndSeconds } from "../../services/utils";
-import { MediaPlayer } from "../../elements/MediaPlayer/MediaPlayer";
-const EpisodePlayer = ({ title, description, path }) => {
-  React.useEffect(() => {
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+import { useParams } from "react-router-dom";
 
+import { MediaPlayer } from "../../elements/MediaPlayer/MediaPlayer";
+const EpisodePlayer = ({ episodeList }) => {
+  let { id } = useParams();
+
+  const getEpisodeInfoFromId = episodeList.filter((el) => el.trackId == id)[0];
   return (
     <div className="episode-player">
-      <div className="episode-player__header"> {title}</div>
-      {description && (
+      <div className="episode-player__header">
+        {getEpisodeInfoFromId?.trackName}
+      </div>
+      {getEpisodeInfoFromId?.description && (
         <div
           className="episode-player__row"
-          dangerouslySetInnerHTML={{ __html: description }}
+          dangerouslySetInnerHTML={{
+            __html: getEpisodeInfoFromId?.description,
+          }}
         />
       )}
-      <MediaPlayer path={path} />
+      <MediaPlayer path={getEpisodeInfoFromId?.episodeUrl} />
     </div>
   );
 };

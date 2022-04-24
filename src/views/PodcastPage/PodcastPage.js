@@ -2,24 +2,22 @@ import React from "react";
 import { connect } from "react-redux";
 import PodcasterCard from "../../components/PodcasterCard/PodcasterCard";
 import EpisodeList from "../../components/EpisodeList/EpisodeList";
+import EpisodePlayer from "../../components/EpisodePlayer/EpisodePlayer";
 import getEpisodeList from "../../services/api/getEpisodeList";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Route, Routes, useParams } from "react-router-dom";
 import {
-  setSelectedEpisode,
   setEpisodeList,
+  setSelectedPodcast,
 } from "../../services/redux/actions/";
-
+import { getSelectedPodcast } from "../../services/utils";
 const PodcastPage = (props) => {
-  const { selectedPodcast, setSelectedEpisode, setEpisodeList, episodeList } =
+  const { selectedPodcast, setEpisodeList, episodeList, setSelectedPodcast,podcastList } =
     props;
-
+  let { id } = useParams();
   let navigate = useNavigate();
 
   const handleClick = (epId) => {
-    setSelectedEpisode(epId);
-    navigate(
-      `/podcast/${selectedPodcast.id.attributes["im:id"]}/episode/${epId}`
-    );
+    navigate(`episode/${epId}`);
   };
   const updateEpisodelist = async (id) => {
     const episodeInfo = await getEpisodeList(id);
@@ -27,13 +25,16 @@ const PodcastPage = (props) => {
   };
 
   React.useEffect(() => {
-    if (selectedPodcast.id) {
-      const podcastId = selectedPodcast.id.attributes["im:id"];
-      updateEpisodelist(podcastId);
+    if (!selectedPodcast) {
+      const selectedContent = getSelectedPodcast(podcastList,id);
+      setSelectedPodcast(selectedContent);
     }
-  }, [selectedPodcast]);
+    
+    
+    updateEpisodelist(id);
+  }, []);
 
-  return selectedPodcast.id ? (
+  return selectedPodcast?.id ? (
     <div className="podcast-page">
       <PodcasterCard
         title={selectedPodcast.title.label}
@@ -41,7 +42,18 @@ const PodcastPage = (props) => {
         description={selectedPodcast.summary.label}
         image={selectedPodcast["im:image"][2].label}
       />
-      <EpisodeList list={episodeList} onClickEpisode={handleClick} />
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <EpisodeList list={episodeList} onClickEpisode={handleClick} />
+          }
+        />
+        <Route
+          path="episode/:id"
+          element={<EpisodePlayer episodeList={episodeList} />}
+        />
+      </Routes>
     </div>
   ) : (
     <h1>Sin datos </h1>
@@ -51,8 +63,9 @@ const mapStateToProps = (state) => {
   return {
     selectedPodcast: state.selectedPodcast,
     episodeList: state.episodeList,
+    podcastList:state.podcastList
   };
 };
-export default connect(mapStateToProps, { setSelectedEpisode, setEpisodeList })(
+export default connect(mapStateToProps, { setEpisodeList, setSelectedPodcast })(
   PodcastPage
 );
