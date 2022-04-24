@@ -1,12 +1,12 @@
 import React from "react";
 import { millisToMinutesAndSeconds } from "../../services/utils";
-
+import { Spinner } from "../../elements/Spinner/Spinner";
 const EpisodeList = ({ list, onClickEpisode }) => {
-  const [filteredListLength, setFilteredListLength] = React.useState();
+  const [episodeList, setEpisodeList] = React.useState();
 
   React.useEffect(() => {
     if (list) {
-      setFilteredListLength(
+      setEpisodeList(
         list.map((el, i) => (
           <div
             className="episode-list__row"
@@ -26,14 +26,20 @@ const EpisodeList = ({ list, onClickEpisode }) => {
 
   return (
     <div className="episode-list">
-      <div className="episode-list__header">
-        {`Episodes: ${list && list.length}`}
-      </div>
-      <div className="episode-list__row">
-        <div style={{ flex: "1" }}> Title</div>
-        <div>Date</div> <div>Duration</div>
-      </div>
-      {filteredListLength}
+      {list.length ? (
+        <>
+          <div className="episode-list__header">
+            {`Episodes: ${list && list.length}`}
+          </div>
+          <div className="episode-list__row">
+            <div style={{ flex: "1" }}> Title</div>
+            <div>Date</div> <div>Duration</div>
+          </div>
+          {episodeList}
+        </>
+      ) : (
+        <Spinner />
+      )}
     </div>
   );
 };

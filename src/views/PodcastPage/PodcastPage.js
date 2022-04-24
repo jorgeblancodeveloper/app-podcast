@@ -3,55 +3,52 @@ import { connect } from "react-redux";
 import PodcasterCard from "../../components/PodcasterCard/PodcasterCard";
 import EpisodeList from "../../components/EpisodeList/EpisodeList";
 import getEpisodeList from "../../services/api/getEpisodeList";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   setSelectedEpisode,
   setEpisodeList,
 } from "../../services/redux/actions/";
 
 const PodcastPage = (props) => {
-  const {
-    podcastList,
-    selectedPodcast,
-    setSelectedEpisode,
-    setEpisodeList,
-    episodeList,
-  } = props;
+  const { selectedPodcast, setSelectedEpisode, setEpisodeList, episodeList } =
+    props;
 
   let navigate = useNavigate();
 
-  const podcastId = selectedPodcast.id.attributes["im:id"];
   const handleClick = (epId) => {
     setSelectedEpisode(epId);
-    navigate(`/podcast/${podcastId}/episode/${epId}`);
+    navigate(
+      `/podcast/${selectedPodcast.id.attributes["im:id"]}/episode/${epId}`
+    );
   };
-  const updateEpisodelist = async () => {
-    const episodeInfo = await getEpisodeList(podcastId);
-    console.log(JSON.parse(episodeInfo.contents).results);
+  const updateEpisodelist = async (id) => {
+    const episodeInfo = await getEpisodeList(id);
     setEpisodeList(JSON.parse(episodeInfo.contents).results);
   };
 
   React.useEffect(() => {
-    updateEpisodelist();
-  }, []);
+    if (selectedPodcast.id) {
+      const podcastId = selectedPodcast.id.attributes["im:id"];
+      updateEpisodelist(podcastId);
+    }
+  }, [selectedPodcast]);
 
-  return (
-    selectedPodcast && (
-      <div className="podcast-page">
-        <PodcasterCard
-          title={selectedPodcast.title.label}
-          autor={selectedPodcast["im:artist"].label}
-          description={selectedPodcast.summary.label}
-          image={selectedPodcast["im:image"][2].label}
-        />
-        <EpisodeList list={episodeList} onClickEpisode={handleClick} />
-      </div>
-    )
+  return selectedPodcast.id ? (
+    <div className="podcast-page">
+      <PodcasterCard
+        title={selectedPodcast.title.label}
+        autor={selectedPodcast["im:artist"].label}
+        description={selectedPodcast.summary.label}
+        image={selectedPodcast["im:image"][2].label}
+      />
+      <EpisodeList list={episodeList} onClickEpisode={handleClick} />
+    </div>
+  ) : (
+    <h1>Sin datos </h1>
   );
 };
 const mapStateToProps = (state) => {
   return {
-    podcastList: state.podcastList,
     selectedPodcast: state.selectedPodcast,
     episodeList: state.episodeList,
   };

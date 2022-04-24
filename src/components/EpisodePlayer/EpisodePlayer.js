@@ -12,7 +12,7 @@ const EpisodePlayer = ({ title, description, path }) => {
     <div className="episode-player">
       <div className="episode-player__header"> {title}</div>
       <div className="episode-player__row"> {description}</div>
-      <MediaPlayer path={path.mp3} />
+      <MediaPlayer path={path} />
     </div>
   );
 };

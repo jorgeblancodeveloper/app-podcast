@@ -27,11 +27,9 @@ const App = ({ setPodcastList, setFilteredList }) => {
         <Header />
         <BrowserRouter>
           <Routes>
-            <Route exact path="/" element={<MainPage />} />
-            <Route exact path="podcast/:id" element={<PodcastPage />}>
-     
-            </Route>
+            <Route path="podcast/:id" element={<PodcastPage />}></Route>
             <Route path="podcast/*" element={<EpisodePage />} />
+            <Route path="/" element={<MainPage />} />
           </Routes>
         </BrowserRouter>
       </div>
