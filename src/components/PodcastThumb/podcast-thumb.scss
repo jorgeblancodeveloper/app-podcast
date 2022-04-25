@@ -5,6 +5,14 @@
   filter: $dropShadow;
   margin-top: 6em;
   text-align: center;
+  @for $i from 1 through 10 {
+    &:nth-child(#{$i}){
+      animation-delay: ($i * 0.02)+s
+    }
+  }
+  &:nth-child(n+10) {
+    animation-delay:0.5s
+  }
   &:hover {
     background: lighten($colorTheme, 30%);
     filter: drop-shadow(2px 4px 16px rgba(#fff, 0.5));

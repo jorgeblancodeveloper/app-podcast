@@ -34,7 +34,6 @@ const App = ({ setPodcastList, podcastList }) => {
   return podcastList ? (
     <div className="app">
       <BrowserRouter>
-        {" "}
         <Header>Podcaster</Header>
         <Routes>
           <Route path="podcast/:id/*" element={<PodcastPage />} />
