@@ -38,8 +38,7 @@ $baseSpacing: 16px;
   width: 100%;
   max-width: 1400px;
   margin: auto;
-  height: 100vh;
-  overflow: scroll;
+  min-height: 100vh;
 }
 .podcast-page {
   display: flex;
@@ -72,7 +71,7 @@ $baseSpacing: 16px;
   padding: 1em;
   > * {
     width: 100%;
-    max-width: calc((100% / 4) - (2 * 1em));
+    max-width: calc((100% / 4) - 3em);
     align-self: baseline;
   }
 }

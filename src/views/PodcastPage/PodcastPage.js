@@ -35,6 +35,10 @@ const PodcastPage = (props) => {
     }
     const [a, ...rest] = episodeInfo;
     setEpisodeList(rest);
+    localStorage.setItem(
+      "myEpisodelist",
+      JSON.stringify({ date: new Date(), episodeList:rest, id })
+    );
   };
 
   React.useEffect(() => {
@@ -47,15 +51,11 @@ const PodcastPage = (props) => {
     if (
       myEpisodelist &&
       myEpisodelist.id === id &&
-      getDifferenceTime(myEpisodelist?.date) > 1
+      getDifferenceTime(myEpisodelist?.date) < 1
     ) {
       setEpisodeList(myEpisodelist.episodeList);
     } else {
       updateEpisodelist(id);
-      localStorage.setItem(
-        "myEpisodelist",
-        JSON.stringify({ date: new Date(), episodeList, id })
-      );
     }
   }, []);
 

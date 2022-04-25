@@ -24,7 +24,7 @@ const App = ({ setPodcastList, podcastList }) => {
 
   React.useEffect(() => {
     const savedSession = JSON.parse(localStorage.getItem("myPodcastSession"));
-    if (savedSession && getDifferenceTime(savedSession?.date) > 1) {
+    if (savedSession && getDifferenceTime(savedSession?.date) < 1) {
       setPodcastList(savedSession.podcastList);
     } else {
       fillPodcastList();
