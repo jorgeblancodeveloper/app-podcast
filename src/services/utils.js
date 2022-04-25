@@ -15,8 +15,8 @@ const getDifferenceTime = (data) => {
   const date2 = new Date(data);
   const diffTime = Math.abs(date2 - date1);
   const diffMin = diffTime / (1000 * 60);
-  // return diffTime / (1000 * 60 * 60 * 24);
-  return diffMin;
+  return diffTime / (1000 * 60 * 60 * 24);
+  // return diffMin;
 };
 
 export { millisToMinutesAndSeconds, getSelectedPodcast, getDifferenceTime };

@@ -1,21 +1,49 @@
 .episode-list {
-    flex:1;
-    margin:1em;
-    @extend %box-content;
-&__header{
-    color:$colorTheme;
+    padding: 0;
+    margin: 1em;
+  flex: 1;
+
+  @extend %box-content;
+  &__header {
+    background: $background;
+    padding: 1em $basePadding;
+    font-size: 1.23em;
+    font-weight:bold;
+    filter: $dropShadow;
+    margin-bottom: 1em;
+  }
+  %row {
+    display: grid;
+    grid-template-columns: 65% 20% 12%;
+    gap: 10px 10px;
+    padding: 1em;
+    div:not(:first-child) {
+      text-align: center;
+    }
+  }
+  &__table{
+    filter: $dropShadow;
     background: $background;
     padding: $basePadding;
-    font-size:1.8em;
-}
-    &__row{
-        cursor:pointer;
-        justify-content: space-between;
-        padding:1em;
-        display: flex;
-        &:nth-child(even) {
-            background: rgba(0,0,0,0.05);
-        }
-        border-top:1px solid #bbb;
+  }
+  &__row-header {
+    @extend %row;
+    font-size: 1.1em;
+    font-weight: bold;
+  }
+  &__row {
+    cursor: pointer;
+    @extend %row;
+    border-top: 1px solid #bbb;
+
+    div:first-child {
+        color: $colorTheme;
+      }
+    &:nth-child(even) {
+      background: rgba(0, 0, 0, 0.05);
     }
+    &:hover {
+      background: rgba(0, 0, 0, 0.1);
+    }
+  }
 }

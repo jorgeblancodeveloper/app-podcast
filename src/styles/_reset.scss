@@ -55,6 +55,7 @@ table {
   }
   a, a:visited,a:active,a:link {
     text-decoration: none;
+	color: inherit;
   }
   h1,h2,h3{
 	text-align: center;
@@ -66,4 +67,7 @@ table {
   }
   b{
 	  font-weight:bold;
+  }
+  audio{
+	width: 100%;
   }

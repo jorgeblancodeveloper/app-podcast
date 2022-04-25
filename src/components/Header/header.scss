@@ -1,7 +1,9 @@
 .header {
   color: $colorTheme;
-  @extend %box-content;
+
+  margin: 1em;
   &__title {
-    font-size: 1.8em;
+    font-size: 1.3em;
+    font-weight:bold;;
   }
 }

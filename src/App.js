@@ -2,12 +2,19 @@ import React from "react";
 import PodcastPage from "./views/PodcastPage/PodcastPage";
 import Header from "./components/Header/Header";
 import MainPage from "./views/MainPage/MainPage";
+import ErrorPage from "./views/ErrorPage/ErrorPage";
 import { Spinner } from "./elements/Spinner/Spinner";
-import { Route, BrowserRouter, Routes } from "react-router-dom";
+
 import { setPodcastList } from "./services/redux/actions";
 import { getDifferenceTime } from "./services/utils";
 import { connect } from "react-redux";
 import getPodcastList from "./services/api/getPodcastList";
+import {
+  Route,
+  BrowserRouter,
+  Routes,
+  Navigate,
+} from "react-router-dom";
 import "./styles/app.scss";
 const App = ({ setPodcastList, podcastList }) => {
   const fillPodcastList = async () => {
@@ -20,9 +27,8 @@ const App = ({ setPodcastList, podcastList }) => {
   };
 
   React.useEffect(() => {
-    console.log("start");
     const savedSession = JSON.parse(localStorage.getItem("myPodcastSession"));
-    if (savedSession && getDifferenceTime(savedSession?.date) > 0) {
+    if (savedSession && getDifferenceTime(savedSession?.date) > 1) {
       setPodcastList(savedSession.podcastList);
     } else {
       fillPodcastList();
@@ -30,18 +36,22 @@ const App = ({ setPodcastList, podcastList }) => {
   }, []);
 
   return podcastList ? (
-    <main>
-      <div className="app">
+    <div className="app">
+      <BrowserRouter>
+        {" "}
         <Header />
-        <BrowserRouter>
-          <Routes>
-            <Route path="podcast/:id/*" element={<PodcastPage user={12} />} />
-            <Route path="main" element={<MainPage />} />
-            <Route path="/" element={<MainPage />} />
-          </Routes>
-        </BrowserRouter>
-      </div>
-    </main>
+        <Routes>
+          <Route path="podcast/:id/*" element={<PodcastPage />} />
+          <Route path="main" element={<MainPage />} />
+          <Route path="error" element={<ErrorPage />} />
+          <Route
+            exact
+            path="/*"
+            element={<Navigate replace to="/main" />}
+          ></Route>
+        </Routes>
+      </BrowserRouter>
+    </div>
   ) : (
     <Spinner />
   );

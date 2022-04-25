@@ -10,15 +10,19 @@ export const FilterModule = ({ list, setFiltered }) => {
   const handleChange = (ev) => {
     const filtered = list.filter((el) =>
       el.title.label.toLowerCase().includes(ev.target.value.toLowerCase())
+      || el["im:artist"].label.toLowerCase().includes(ev.target.value.toLowerCase())
     );
     setFilteredListLength(filtered.length);
     setFiltered(filtered);
   };
   return (
+    <>
+      <Separator/>
     <div className="filter-module">
-        <Separator/>
+      
       <div className="filter-module__count">{filteredListLength}</div>
       <Input handleChange={handleChange} placeholder="Filter podcasts..." />
     </div>
+    </>
   );
 };

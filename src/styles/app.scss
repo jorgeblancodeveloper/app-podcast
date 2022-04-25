@@ -1,28 +1,22 @@
 $background-layout: rgb(218, 216, 216) !default;
 $background: #fefefe !default;
-$grey:#bbb;
+$grey: #bbb !default;
 $color: #666 !default;
-$inverted-background: #747fad !default;
 $inverted-color: #fff !default;
 $shadow-color: #000 !default;
-$colorTheme:#2F78BC;
-$fontSize:16px;
-$button-background: whitesmoke !default;
-$button-color: #747fad !default;
-$dropShadow:drop-shadow(2px 4px 16px rgba($shadow-color, 0.1));
+$colorTheme: #2f78bc;
+$fontSize: 15px;
+$dropShadow: drop-shadow(2px 4px 16px rgba($shadow-color, 0.1));
 $transition: all cubic-bezier(0.26, -0.42, 0.29, 1.06) 0.4s;
 $basePadding: 1.6em;
-// :export {
-//   baseAnimationDuration: $baseAnimationDurationValue * 1000;
-// }
-%box-content{
+%box-content {
   background: $background;
   padding: $basePadding;
   margin: 1em;
   width: auto;
-
-  font-size: 0.8em;
+  font-size: 0.9em;
 }
+
 // Utilitys
 .is-disabled {
   opacity: 0.3 !important;
@@ -32,36 +26,93 @@ $basePadding: 1.6em;
   transition: $transition !important;
 }
 
-.podcast-page{
-display:flex;
-}
-
-@mixin center_flex($direction:row) {
+.podcast-page {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: $direction;
 }
 
 @import "fonts";
 @import "reset";
-
 @import "layout";
 @import "modules";
-
 @import "anims";
-.app{
-  width:calc(100% - 2em);
-  max-width:1200px;
-  margin:2em auto;
+
+.error-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  flex: 1;
+  height: 80%;
+  &__error {
+    color: red;
+    font-size: 2em;
+    margin-bottom: 1em;
+    font-weight:bold;
+  }
+  a{
+    text-decoration: underline;
+    color:$colorTheme
+  }
 }
 
-.podcast-list{
-  display:flex;
-  flex-wrap:wrap;
-  margin:auto;
-
+//Responsive
+.app {
+  background: $background;
+  padding: $basePadding;
+  width: 100%;
+  max-width: 1400px;
+  margin: auto;
+  height: 100vh;
+  overflow: scroll;
+  @media only screen and (max-width: 800px) {
+    padding: 1em 0;
+  }
 }
-.podcast-list > *{
-  align-self: baseline;
+.podcast-page {
+  align-items: start;
+  @media only screen and (max-width: 800px) {
+    flex-direction: column;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  .episode-list .episode-list__row,
+  .episode-list .episode-list__row-header {
+    grid-template-columns: 55% 20% 20%;
+  }
+  .podcaster-card {
+    max-width: 100%;
+    flex: 1;
+    &__image {
+      width: 30%;
+      float: left;
+      margin-right: 1em;
+      margin-bottom: 1em;
+    }
+  }
+}
+.podcast-list {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -1em;
+  padding: 1em;
+  @media only screen and (max-width: 1100px) {
+    margin: 0 -0.5em;
+  }
+  > * {
+    width: 100%;
+    max-width: calc((100% / 4) - (2 * 1em));
+    align-self: baseline;
+    @media only screen and (max-width: 1100px) {
+      max-width: calc((100% / 3) - (2 * 0.5em));
+      margin-left: 0.5em;
+      margin-right: 0.5em;
+    }
+    @media only screen and (max-width: 800px) {
+      max-width: calc((100% / 2) - (2 * 0.51em));
+    }
+    @media only screen and (max-width: 500px) {
+      max-width: calc((100% / 1) - (2 * 0.5em));
+    }
+  }
 }

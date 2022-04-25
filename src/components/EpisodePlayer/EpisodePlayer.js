@@ -1,11 +1,12 @@
 import React from "react";
-import { useParams } from "react-router-dom";
 
+import { useNavigate,  useParams } from "react-router-dom";
 import { MediaPlayer } from "../../elements/MediaPlayer/MediaPlayer";
 const EpisodePlayer = ({ episodeList }) => {
   let { id } = useParams();
-
+  let navigate = useNavigate();
   const getEpisodeInfoFromId = episodeList.filter((el) => el.trackId == id)[0];
+  if (!getEpisodeInfoFromId) {navigate(`/error`);};
   return (
     <div className="episode-player">
       <div className="episode-player__header">

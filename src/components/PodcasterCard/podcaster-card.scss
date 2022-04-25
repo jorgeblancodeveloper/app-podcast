@@ -1,10 +1,15 @@
 .podcaster-card {
   @extend %box-content;
-  max-width: 200px;
+  max-width: 270px;
   filter: $dropShadow;
   &__image {
+    img{
+      max-width: 100%;
+      display: block;
+      margin: auto;
+    }
     margin: auto;
-    width: min-content;
+    width: 100%;
   }
   &__title {
     font-weight: bold;
@@ -17,7 +22,6 @@
   &__description {
     padding-top: 0.5em;
     font-style: italic;
-    line-height: 1.2;
   }
-  padding-top: 0.5em;
+
 }

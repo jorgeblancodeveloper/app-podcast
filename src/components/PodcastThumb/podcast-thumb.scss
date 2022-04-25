@@ -9,19 +9,18 @@
   margin-top: 6em;
   text-align: center;
   &__image {
-    margin: auto;
-    width: min-content;
-
+    width: 8em;
+    height: 8em;
     border-radius: 100%;
     overflow: hidden;
     margin: -6em auto 0;
     border: solid 1px #eee;
     background: $background;
     img {
-      max-width: 100px;
       transform: scale(1.1);
-      min-width: 6em;
-      min-height: 6em;
+      width: 8em;
+      height: 8em;
+  
     }
   }
   &__title {
@@ -32,5 +31,6 @@
   &__subtitle {
     font-weight: normal;
     padding-top: 0.5em;
+    color: lighten($color,20%)
   }
 }

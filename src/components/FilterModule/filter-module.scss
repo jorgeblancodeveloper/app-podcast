@@ -1,18 +1,18 @@
-.filter-module{
-    color:$colorTheme;
-    @extend %box-content;
-    padding-top:0;
-    margin-top:-1em;
-    text-align: right;
-    &__count{
-        background:$colorTheme;
-        color:$inverted-color;
-        padding:0.3em;
-        border-radius:8px;
-        font-weight:bold;
-        width:auto;
-        min-width:1.5em;
-        text-align:center;
+.filter-module {
+  color: $colorTheme;
+  padding: 0 $basePadding;
+  margin: 1em;
+  text-align: right;
+  &__count {
+    background: $colorTheme;
+    color: $inverted-color;
+    padding: 0 0.3em;
+    border-radius: 8px;
+    font-weight: bold;
+    width: auto;
+    min-width: 1.5em;
+    font-size: 1.1em;
+    text-align: center;
     display: inline-block;
-    }
+  }
 }

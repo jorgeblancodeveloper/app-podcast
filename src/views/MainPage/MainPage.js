@@ -28,23 +28,23 @@ const MainPage = ({
   const [thumbList, setThumbList] = React.useState([]);
 
   React.useEffect(() => {
-    if (filteredList.length) {
-      setThumbList(
-        filteredList.map((e, i) => {
-          const delay = i * 0.03;
-          return (
-            <PodcastThumb
-              onClick={() => handleClick(e.id.attributes["im:id"])}
-              key={e.title.label + i}
-              title={e.title.label}
-              autor={e["im:artist"].label}
-              image={e["im:image"][2].label}
-              style={{ animationDelay: `${delay}s` }}
-            />
-          );
-        })
-      );
-    }
+    setThumbList(
+      filteredList.length
+        ? filteredList.map((e, i) => {
+            const delay = i < 10 ? 0.1 + i * 0.1 : 1.1;
+            return (
+              <PodcastThumb
+                onClick={() => handleClick(e.id.attributes["im:id"])}
+                key={e.title.label + i}
+                title={e["im:image"].label}
+                autor={e["im:artist"].label}
+                image={e["im:image"][2].label}
+                style={{ animationDelay: `${delay}s` }}
+              />
+            );
+          })
+        : ""
+    );
   }, [filteredList]);
 
   return (

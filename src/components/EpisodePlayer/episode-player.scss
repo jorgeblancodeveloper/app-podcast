@@ -1,15 +1,15 @@
-.episode-player  {
-    flex:1;
-    margin:1em;
-    @extend %box-content;
-&__header{
-    color:$colorTheme;
-    background: $background;
-    padding: $basePadding;
-    font-size:1.8em;
-}
-    &__row{
-        padding:1em;
-        border-top:1px solid #bbb;
-    }
+.episode-player {
+  flex: 1;
+  margin: 1em;
+  @extend %box-content;
+  filter: $dropShadow;
+  &__header {
+    padding: 1em 0.7em 0;
+    font-weight: bold;
+    font-size: 1.3em;
+  }
+  &__row {
+    padding: 1em;
+    margin-bottom:2em;
+  }
 }

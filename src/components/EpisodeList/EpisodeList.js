@@ -13,10 +13,19 @@ const EpisodeList = ({ list, onClickEpisode }) => {
             key={el + i}
             onClick={() => onClickEpisode(el.trackId)}
           >
-            <div style={{ flex: "1" }}> {el.trackName}</div>
-            <div>{millisToMinutesAndSeconds(el.trackTimeMillis)}</div>
-            {"-"}
-            <div>{el.releaseDate}</div>
+            <div> {el.trackName}</div>
+            <div>
+              {new Date(el.releaseDate).toLocaleString("es-ES", {
+                year: "numeric",
+                month: "2-digit",
+                day: "2-digit",
+              })}
+            </div>
+            <div>
+              {el.trackTimeMillis &&
+                millisToMinutesAndSeconds(el.trackTimeMillis)}
+            </div>
+
           </div>
         ))
       );
@@ -31,11 +40,15 @@ const EpisodeList = ({ list, onClickEpisode }) => {
           <div className="episode-list__header">
             {`Episodes: ${list && list.length}`}
           </div>
-          <div className="episode-list__row">
-            <div style={{ flex: "1" }}> Title</div>
-            <div>Date</div> <div>Duration</div>
+          <div className="episode-list__table">
+            <div className="episode-list__row-header">
+              <div style={{ flex: "1" }}> Title</div>
+              <div>Date</div>
+              <div>Duration</div>
+            </div>
+            {episodeList}
           </div>
-          {episodeList}
+      
         </>
       ) : (
         <Spinner />
