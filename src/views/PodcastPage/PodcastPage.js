@@ -36,8 +36,8 @@ const PodcastPage = (props) => {
     const [a, ...rest] = episodeInfo;
     setEpisodeList(rest);
     localStorage.setItem(
-      "myEpisodelist",
-      JSON.stringify({ date: new Date(), episodeList:rest, id })
+      [id],
+      JSON.stringify({ date: new Date(), episodeList:rest })
     );
   };
 
@@ -47,11 +47,9 @@ const PodcastPage = (props) => {
       setSelectedPodcast(selectedContent);
     }
 
-    const myEpisodelist = JSON.parse(localStorage.getItem("myEpisodelist"));
+    const myEpisodelist = JSON.parse(localStorage.getItem([id]));
     if (
-      myEpisodelist &&
-      myEpisodelist.id === id &&
-      getDifferenceTime(myEpisodelist?.date) < 1
+      myEpisodelist && getDifferenceTime(myEpisodelist?.date) < 1
     ) {
       setEpisodeList(myEpisodelist.episodeList);
     } else {

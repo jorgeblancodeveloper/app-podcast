@@ -10,6 +10,7 @@ $dropShadow: drop-shadow(2px 4px 16px rgba($shadowColor, 0.1));
 $transition: all cubic-bezier(0.26, -0.42, 0.29, 1.06) 0.4s;
 $basePadding: 1.6em;
 $baseSpacing: 16px;
+
 %boxContent {
   background: $background;
   padding: $basePadding;

@@ -20,4 +20,3 @@ const getDifferenceTime = (data) => {
 };
 
 export { millisToMinutesAndSeconds, getSelectedPodcast, getDifferenceTime };
-
