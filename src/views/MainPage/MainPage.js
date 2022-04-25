@@ -15,17 +15,19 @@ const MainPage = ({
   setSelectedPodcast,
   setFilteredList,
 }) => {
+  const [thumbList, setThumbList] = React.useState([]);
   let navigate = useNavigate();
 
-  const handleClick = (id) => {
+  const goPodcast = (id) => {
     const selectedContent = getSelectedPodcast(podcastList, id);
     setSelectedPodcast(selectedContent);
     navigate(`/podcast/${id}`);
   };
-  const handleFilteredList = (filteredData) => {
+
+  const handleFilterList = (filteredData) => {
     setFilteredList(filteredData);
   };
-  const [thumbList, setThumbList] = React.useState([]);
+
 
   React.useEffect(() => {
     setThumbList(
@@ -34,16 +36,16 @@ const MainPage = ({
             const delay = i < 10 ? 0.1 + i * 0.1 : 1.1;
             return (
               <PodcastThumb
-                onClick={() => handleClick(e.id.attributes["im:id"])}
+                onClick={() => goPodcast(e.id.attributes["im:id"])}
                 key={e.title.label + i}
-                title={e["im:image"].label}
+                title={e["im:name"].label}
                 autor={e["im:artist"].label}
                 image={e["im:image"][2].label}
                 style={{ animationDelay: `${delay}s` }}
               />
             );
           })
-        : ""
+        : (<div>No podcasts finded...</div>)
     );
   }, [filteredList]);
 
@@ -52,7 +54,7 @@ const MainPage = ({
       {podcastList?.feed?.entry.length && (
         <FilterModule
           list={podcastList?.feed?.entry}
-          setFiltered={handleFilteredList}
+          setFiltered={handleFilterList}
         />
       )}
       <div className="podcast-list__wrapper">

@@ -1,33 +1,27 @@
-$background-layout: rgb(218, 216, 216) !default;
+$backgroundLayout: rgb(218, 216, 216) !default;
 $background: #fefefe !default;
 $grey: #bbb !default;
 $color: #666 !default;
-$inverted-color: #fff !default;
-$shadow-color: #000 !default;
+$invertedColor: #fff !default;
+$shadowColor: #000 !default;
 $colorTheme: #2f78bc;
 $fontSize: 15px;
-$dropShadow: drop-shadow(2px 4px 16px rgba($shadow-color, 0.1));
+$dropShadow: drop-shadow(2px 4px 16px rgba($shadowColor, 0.1));
 $transition: all cubic-bezier(0.26, -0.42, 0.29, 1.06) 0.4s;
 $basePadding: 1.6em;
-%box-content {
+$baseSpacing: 16px;
+%boxContent {
   background: $background;
   padding: $basePadding;
-  margin: 1em;
+  margin: $baseSpacing;
   width: auto;
   font-size: 0.9em;
 }
 
 // Utilitys
-.is-disabled {
-  opacity: 0.3 !important;
-  pointer-events: none !important;
-}
-.is-animable {
-  transition: $transition !important;
-}
 
-.podcast-page {
-  display: flex;
+.is-animated {
+  transition: $transition !important;
 }
 
 @import "fonts";
@@ -36,26 +30,8 @@ $basePadding: 1.6em;
 @import "modules";
 @import "anims";
 
-.error-page {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  flex: 1;
-  height: 80%;
-  &__error {
-    color: red;
-    font-size: 2em;
-    margin-bottom: 1em;
-    font-weight:bold;
-  }
-  a{
-    text-decoration: underline;
-    color:$colorTheme
-  }
-}
+// Pages
 
-//Responsive
 .app {
   background: $background;
   padding: $basePadding;
@@ -64,12 +40,51 @@ $basePadding: 1.6em;
   margin: auto;
   height: 100vh;
   overflow: scroll;
+}
+.podcast-page {
+  display: flex;
+  align-items: start;
+}
+
+.error-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 80%;
+  &__error {
+    color: red;
+    transform: scale(0.4, 1);
+    font-size: 5em;
+    margin-bottom: $baseSpacing;
+    font-weight: bold;
+  }
+  a {
+    text-decoration: underline;
+    color: $colorTheme;
+  }
+}
+
+.podcast-list {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -1em;
+  padding: 1em;
+  > * {
+    width: 100%;
+    max-width: calc((100% / 4) - (2 * 1em));
+    align-self: baseline;
+  }
+}
+
+//Responsive
+
+.app {
   @media only screen and (max-width: 800px) {
     padding: 1em 0;
   }
 }
 .podcast-page {
-  align-items: start;
   @media only screen and (max-width: 800px) {
     flex-direction: column;
   }
@@ -91,18 +106,12 @@ $basePadding: 1.6em;
     }
   }
 }
+
 .podcast-list {
-  display: flex;
-  flex-wrap: wrap;
-  margin: 0 -1em;
-  padding: 1em;
   @media only screen and (max-width: 1100px) {
     margin: 0 -0.5em;
   }
   > * {
-    width: 100%;
-    max-width: calc((100% / 4) - (2 * 1em));
-    align-self: baseline;
     @media only screen and (max-width: 1100px) {
       max-width: calc((100% / 3) - (2 * 0.5em));
       margin-left: 0.5em;

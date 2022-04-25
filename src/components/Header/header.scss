@@ -1,9 +1,8 @@
 .header {
   color: $colorTheme;
-
-  margin: 1em;
+  margin: $baseSpacing;
   &__title {
     font-size: 1.3em;
-    font-weight:bold;;
+    font-weight: bold;
   }
 }

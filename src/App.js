@@ -3,19 +3,15 @@ import PodcastPage from "./views/PodcastPage/PodcastPage";
 import Header from "./components/Header/Header";
 import MainPage from "./views/MainPage/MainPage";
 import ErrorPage from "./views/ErrorPage/ErrorPage";
-import { Spinner } from "./elements/Spinner/Spinner";
+import Spinner from "./elements/Spinner/Spinner";
 
 import { setPodcastList } from "./services/redux/actions";
 import { getDifferenceTime } from "./services/utils";
 import { connect } from "react-redux";
-import getPodcastList from "./services/api/getPodcastList";
-import {
-  Route,
-  BrowserRouter,
-  Routes,
-  Navigate,
-} from "react-router-dom";
+import { getPodcastList } from "./services/api/getPodcastList";
+import { Route, BrowserRouter, Routes, Navigate } from "react-router-dom";
 import "./styles/app.scss";
+
 const App = ({ setPodcastList, podcastList }) => {
   const fillPodcastList = async () => {
     const PodcastList = await getPodcastList();
@@ -39,15 +35,15 @@ const App = ({ setPodcastList, podcastList }) => {
     <div className="app">
       <BrowserRouter>
         {" "}
-        <Header />
+        <Header>Podcaster</Header>
         <Routes>
           <Route path="podcast/:id/*" element={<PodcastPage />} />
-          <Route path="main" element={<MainPage />} />
+          <Route exact path="/" element={<MainPage />} />
           <Route path="error" element={<ErrorPage />} />
           <Route
             exact
             path="/*"
-            element={<Navigate replace to="/main" />}
+            element={<Navigate replace to="/" />}
           ></Route>
         </Routes>
       </BrowserRouter>

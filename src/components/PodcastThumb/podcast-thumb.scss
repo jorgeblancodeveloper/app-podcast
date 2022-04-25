@@ -1,13 +1,15 @@
 .podcast-thumb {
-  @extend %box-content;
-  max-width: calc(100% / 6);
+  @extend %boxContent;
   font-size: 0.8em;
   cursor: pointer;
-  width: 100%;
-  display: inline-block;
   filter: $dropShadow;
   margin-top: 6em;
   text-align: center;
+  &:hover {
+    background: lighten($colorTheme, 30%);
+    filter: drop-shadow(2px 4px 16px rgba(#fff, 0.5));
+    color: #fff !important;
+  }
   &__image {
     width: 8em;
     height: 8em;
@@ -20,7 +22,6 @@
       transform: scale(1.1);
       width: 8em;
       height: 8em;
-  
     }
   }
   &__title {
@@ -31,6 +32,6 @@
   &__subtitle {
     font-weight: normal;
     padding-top: 0.5em;
-    color: lighten($color,20%)
+    opacity: 0.8;
   }
 }

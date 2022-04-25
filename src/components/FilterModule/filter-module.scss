@@ -1,11 +1,10 @@
 .filter-module {
-  color: $colorTheme;
   padding: 0 $basePadding;
-  margin: 1em;
+  margin: $baseSpacing;
   text-align: right;
   &__count {
     background: $colorTheme;
-    color: $inverted-color;
+    color: $invertedColor;
     padding: 0 0.3em;
     border-radius: 8px;
     font-weight: bold;

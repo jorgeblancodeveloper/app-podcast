@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import PodcasterCard from "../../components/PodcasterCard/PodcasterCard";
 import EpisodeList from "../../components/EpisodeList/EpisodeList";
-import { Spinner } from "../../elements/Spinner/Spinner";
+import Spinner from "../../elements/Spinner/Spinner";
 import EpisodePlayer from "../../components/EpisodePlayer/EpisodePlayer";
 import getEpisodeList from "../../services/api/getEpisodeList";
 import { useNavigate, Route, Routes, useParams } from "react-router-dom";
@@ -26,8 +26,12 @@ const PodcastPage = (props) => {
     navigate(`episode/${epId}`);
   };
   const updateEpisodelist = async (id) => {
-    const episodeInfo = await getEpisodeList(id).then(e=>JSON.parse(e.contents).results)
-    if (episodeInfo.length===0) {navigate(`/error`);};
+    const episodeInfo = await getEpisodeList(id).then(
+      (e) => JSON.parse(e.contents).results
+    );
+    if (episodeInfo.length === 0) {
+      navigate(`/error`);
+    }
     const [a, ...rest] = episodeInfo;
     setEpisodeList(rest);
   };

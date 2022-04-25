@@ -1,6 +1,6 @@
 import React from "react";
 import { millisToMinutesAndSeconds } from "../../services/utils";
-import { Spinner } from "../../elements/Spinner/Spinner";
+import Spinner from "../../elements/Spinner/Spinner";
 const EpisodeList = ({ list, onClickEpisode }) => {
   const [episodeList, setEpisodeList] = React.useState();
 
@@ -9,7 +9,7 @@ const EpisodeList = ({ list, onClickEpisode }) => {
       setEpisodeList(
         list.map((el, i) => (
           <div
-            className="episode-list__row"
+            className="episode-list__row is-animated"
             key={el + i}
             onClick={() => onClickEpisode(el.trackId)}
           >
@@ -25,7 +25,6 @@ const EpisodeList = ({ list, onClickEpisode }) => {
               {el.trackTimeMillis &&
                 millisToMinutesAndSeconds(el.trackTimeMillis)}
             </div>
-
           </div>
         ))
       );
@@ -48,7 +47,6 @@ const EpisodeList = ({ list, onClickEpisode }) => {
             </div>
             {episodeList}
           </div>
-      
         </>
       ) : (
         <Spinner />

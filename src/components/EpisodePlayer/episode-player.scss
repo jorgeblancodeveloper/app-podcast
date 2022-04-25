@@ -1,7 +1,6 @@
 .episode-player {
   flex: 1;
-  margin: 1em;
-  @extend %box-content;
+  @extend %boxContent;
   filter: $dropShadow;
   &__header {
     padding: 1em 0.7em 0;
