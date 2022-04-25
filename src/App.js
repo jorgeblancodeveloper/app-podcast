@@ -40,11 +40,7 @@ const App = ({ setPodcastList, podcastList }) => {
           <Route path="podcast/:id/*" element={<PodcastPage />} />
           <Route exact path="/" element={<MainPage />} />
           <Route path="error" element={<ErrorPage />} />
-          <Route
-            exact
-            path="/*"
-            element={<Navigate replace to="/" />}
-          ></Route>
+          <Route exact path="/*" element={<Navigate replace to="/" />}></Route>
         </Routes>
       </BrowserRouter>
     </div>

@@ -10,6 +10,7 @@ import {
   setEpisodeList,
   setSelectedPodcast,
 } from "../../services/redux/actions/";
+import { getDifferenceTime } from "../../services/utils";
 import { getSelectedPodcast } from "../../services/utils";
 const PodcastPage = (props) => {
   const {
@@ -41,7 +42,21 @@ const PodcastPage = (props) => {
       const selectedContent = getSelectedPodcast(podcastList, id);
       setSelectedPodcast(selectedContent);
     }
-    updateEpisodelist(id);
+
+    const myEpisodelist = JSON.parse(localStorage.getItem("myEpisodelist"));
+    if (
+      myEpisodelist &&
+      myEpisodelist.id === id &&
+      getDifferenceTime(myEpisodelist?.date) > 1
+    ) {
+      setEpisodeList(myEpisodelist.episodeList);
+    } else {
+      updateEpisodelist(id);
+      localStorage.setItem(
+        "myEpisodelist",
+        JSON.stringify({ date: new Date(), episodeList, id })
+      );
+    }
   }, []);
 
   return selectedPodcast?.id ? (
