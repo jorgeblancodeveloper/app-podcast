@@ -1,8 +1,9 @@
 .episode-list {
-  @extend %boxContent;
   width:100%;
   flex: 1;
   margin:0;
+  padding-left: $baseSpacing;
+  font-size: 0.9em;
   &__header {
     background: $background;
     padding: 1em $basePadding;

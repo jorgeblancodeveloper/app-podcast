@@ -1,7 +1,10 @@
 .episode-player {
   flex: 1;
-  @extend %boxContent;
+  padding-left: $baseSpacing;
   filter: $dropShadow;
+  &__wrapper {
+    @extend %boxContent;
+  }
   &__header {
     padding: 1em 0.7em 0;
     font-weight: bold;
@@ -9,6 +12,6 @@
   }
   &__row {
     padding: 1em;
-    margin-bottom:2em;
+    margin-bottom: 2em;
   }
 }

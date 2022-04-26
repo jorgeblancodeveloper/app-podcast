@@ -10,18 +10,20 @@ const EpisodePlayer = ({ episodeList }) => {
   }
   return (
     <div className="episode-player">
-      <div className="episode-player__header">
-        {getEpisodeInfoFromId?.trackName}
+      <div className="episode-player__wrapper">
+        <div className="episode-player__header">
+          {getEpisodeInfoFromId?.trackName}
+        </div>
+        {getEpisodeInfoFromId?.description && (
+          <div
+            className="episode-player__row"
+            dangerouslySetInnerHTML={{
+              __html: getEpisodeInfoFromId?.description,
+            }}
+          />
+        )}
+        <MediaPlayer path={getEpisodeInfoFromId?.episodeUrl} />
       </div>
-      {getEpisodeInfoFromId?.description && (
-        <div
-          className="episode-player__row"
-          dangerouslySetInnerHTML={{
-            __html: getEpisodeInfoFromId?.description,
-          }}
-        />
-      )}
-      <MediaPlayer path={getEpisodeInfoFromId?.episodeUrl} />
     </div>
   );
 };

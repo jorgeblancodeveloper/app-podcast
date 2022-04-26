@@ -34,6 +34,7 @@ const EpisodeList = ({ list, onClickEpisode }) => {
 
   return (
     <div className="episode-list">
+      <div className="episode-list__wrapper">
       {list.length ? (
         <>
           <div className="episode-list__header">
@@ -51,6 +52,7 @@ const EpisodeList = ({ list, onClickEpisode }) => {
       ) : (
         <Spinner />
       )}
+      </div>
     </div>
   );
 };

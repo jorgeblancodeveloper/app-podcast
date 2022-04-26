@@ -7,6 +7,7 @@ const PodcasterCard = ({ title, autor, description, image, id, setImageLoaded })
 
   return (
     <div className="podcaster-card">
+      <div className="podcaster-card__wrapper">
       <Link to={`/podcast/${id}`}>
         <div className="podcaster-card__image">
           <img src={image} onLoad={setImageLoaded} />
@@ -21,6 +22,7 @@ const PodcasterCard = ({ title, autor, description, image, id, setImageLoaded })
       <div className="podcaster-card__description">
         <b>Description:</b>
         {description}
+      </div>
       </div>
     </div>
   );

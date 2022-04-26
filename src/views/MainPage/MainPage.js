@@ -60,8 +60,8 @@ const MainPage = ({
           setFiltered={handleFilterList}
         />
       )}
-      <div className="podcast-list__wrapper">
-        <div className="podcast-list">{thumbList}</div>
+      <div className="podcast-list">
+        <div className="podcast-list__wrapper">{thumbList}</div>
       </div>
     </>
   );
