@@ -2,6 +2,8 @@
 
 Demo React skills Jorge Blanco
 
+Best 100 podcast from iTunes, React/Redux made.
+
 ## Available Scripts
 
 In the project directory, you can run:
