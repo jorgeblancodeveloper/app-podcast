@@ -1,4 +1,3 @@
-// index.js
 import React from "react";
 import App from "./src/App";
 import { Provider } from "react-redux";
