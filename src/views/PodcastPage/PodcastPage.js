@@ -84,7 +84,7 @@ const PodcastPage = (props) => {
       </Routes>
     </div>
   ) : (
-   <Spinner />
+    <Spinner />
   );
 };
 const mapStateToProps = (state) => {
