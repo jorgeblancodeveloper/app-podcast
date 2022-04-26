@@ -1,6 +1,6 @@
 import React from "react";
 
-export const MediaPlayer = ({ path, ...props }) => {
+const MediaPlayer = ({ path, ...props }) => {
   return (
     <audio controls {...props}>
       <source src={path} type="audio/mpeg" />
@@ -8,3 +8,5 @@ export const MediaPlayer = ({ path, ...props }) => {
     </audio>
   );
 };
+
+export default MediaPlayer;

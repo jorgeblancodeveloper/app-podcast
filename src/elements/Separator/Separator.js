@@ -1,5 +1,6 @@
 import React from "react";
 
-export const Separator = () => {
+const Separator = () => {
   return <hr className="separator" />;
 };
+export default Separator

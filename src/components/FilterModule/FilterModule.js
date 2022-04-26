@@ -1,7 +1,7 @@
 import React from "react";
 import { Input } from "../../elements/";
 
-export const FilterModule = ({ list, setFiltered }) => {
+ const FilterModule = ({ list, setFiltered }) => {
   const [filteredListLength, setFilteredListLength] = React.useState(0);
   React.useEffect(() => {
     setFiltered(list);
@@ -24,3 +24,5 @@ export const FilterModule = ({ list, setFiltered }) => {
     </>
   );
 };
+
+export default FilterModule

@@ -1,6 +1,6 @@
 import React from "react";
 import { PodcastPage, MainPage, ErrorPage } from "./views/";
-import Header from "./components/Header/Header";
+import {Header} from "./components";
 import { Spinner } from "./elements/";
 
 import { setPodcastList, setLoading } from "./services/redux/actions";

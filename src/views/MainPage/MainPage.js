@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import {PodcastThumb, FilterModule} from "../../components/";
+import {PodcastThumb, FilterModule} from "../../components";
 import { getSelectedPodcast } from "../../services/utils";
 import {
   setSelectedPodcast,
