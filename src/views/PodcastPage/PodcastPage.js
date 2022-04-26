@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { PodcasterCard, EpisodeList, EpisodePlayer } from "../../components";
-import Spinner from "../../elements";
+import { Spinner } from "../../elements";
 import getEpisodeList from "../../services/api/getEpisodeList";
 import { useNavigate, Route, Routes, useParams } from "react-router-dom";
 import {
@@ -84,7 +84,7 @@ const PodcastPage = (props) => {
       </Routes>
     </div>
   ) : (
-    <Spinner />
+   <Spinner />
   );
 };
 const mapStateToProps = (state) => {
