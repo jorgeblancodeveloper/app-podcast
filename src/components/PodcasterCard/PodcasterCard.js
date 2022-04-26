@@ -1,12 +1,15 @@
 import React from "react";
+
 import { Separator } from "../../elements/Separator/Separator";
 import { Link } from "react-router-dom";
-const PodcasterCard = ({ title, autor, description, image, id }) => {
+;
+const PodcasterCard = ({ title, autor, description, image, id, setImageLoaded }) => {
+
   return (
     <div className="podcaster-card">
       <Link to={`/podcast/${id}`}>
         <div className="podcaster-card__image">
-          <img src={image} />
+          <img src={image} onLoad={setImageLoaded} />
         </div>
         <Separator />
         <div className="podcaster-card__title">

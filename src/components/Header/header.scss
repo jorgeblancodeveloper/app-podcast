@@ -1,6 +1,10 @@
 .header {
   color: $colorTheme;
   margin: $baseSpacing;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
   &__title {
     font-size: 1.3em;
     font-weight: bold;

@@ -9,6 +9,7 @@ import { useNavigate, Route, Routes, useParams } from "react-router-dom";
 import {
   setEpisodeList,
   setSelectedPodcast,
+  setLoading,
 } from "../../services/redux/actions/";
 import { getDifferenceTime } from "../../services/utils";
 import { getSelectedPodcast } from "../../services/utils";
@@ -19,6 +20,8 @@ const PodcastPage = (props) => {
     episodeList,
     setSelectedPodcast,
     podcastList,
+    setLoading,
+    isLoading,
   } = props;
   let { id } = useParams();
   let navigate = useNavigate();
@@ -26,10 +29,14 @@ const PodcastPage = (props) => {
   const handleClick = (epId) => {
     navigate(`episode/${epId}`);
   };
+  const setImageLoaded = () => {
+    setLoading(isLoading.filter((el) => el !== "PodcastPage"));
+  };
   const updateEpisodelist = async (id) => {
     const episodeInfo = await getEpisodeList(id).then(
       (e) => JSON.parse(e.contents).results
     );
+    setLoading(isLoading.filter((el) => el !== "PodcastPage"));
     if (episodeInfo.length === 0) {
       navigate(`/error`);
     }
@@ -37,21 +44,21 @@ const PodcastPage = (props) => {
     setEpisodeList(rest);
     localStorage.setItem(
       [id],
-      JSON.stringify({ date: new Date(), episodeList:rest })
+      JSON.stringify({ date: new Date(), episodeList: rest })
     );
   };
 
   React.useEffect(() => {
+    setLoading([...isLoading, "PodcastPage", "PodcastPageImage"]);
     if (!selectedPodcast) {
       const selectedContent = getSelectedPodcast(podcastList, id);
       setSelectedPodcast(selectedContent);
     }
 
     const myEpisodelist = JSON.parse(localStorage.getItem([id]));
-    if (
-      myEpisodelist && getDifferenceTime(myEpisodelist?.date) < 1
-    ) {
+    if (myEpisodelist && getDifferenceTime(myEpisodelist?.date) < 1) {
       setEpisodeList(myEpisodelist.episodeList);
+      setLoading(isLoading.filter((el) => el !== "PodcastPage"));
     } else {
       updateEpisodelist(id);
     }
@@ -65,6 +72,7 @@ const PodcastPage = (props) => {
         autor={selectedPodcast["im:artist"].label}
         description={selectedPodcast.summary.label}
         image={selectedPodcast["im:image"][2].label}
+        setImageLoaded={setImageLoaded}
       />
       <Routes>
         <Route
@@ -88,8 +96,11 @@ const mapStateToProps = (state) => {
     selectedPodcast: state.selectedPodcast,
     episodeList: state.episodeList,
     podcastList: state.podcastList,
+    isLoading: state.isLoading,
   };
 };
-export default connect(mapStateToProps, { setEpisodeList, setSelectedPodcast })(
-  PodcastPage
-);
+export default connect(mapStateToProps, {
+  setEpisodeList,
+  setSelectedPodcast,
+  setLoading,
+})(PodcastPage);

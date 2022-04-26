@@ -3,12 +3,13 @@ import {
   SET_FILTERED_LIST,
   SET_SELECTED_PODCAST,
   SET_EPISODE_LIST,
+  SET_LOADING
 } from "./actions";
 
 export const INITIAL_STATE = {
-
   filteredList: {},
   episodeList:[],
+  isLoading:[]
 };
 
 const reducer = (state = INITIAL_STATE, action) => {
@@ -35,7 +36,11 @@ const reducer = (state = INITIAL_STATE, action) => {
         ...state,
         episodeList: action.payload,
       };
-
+      case SET_LOADING:
+        return {
+          ...state,
+          isLoading: action.payload,
+        };
     default:
       return state;
   }
