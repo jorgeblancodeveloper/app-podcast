@@ -1,18 +1,20 @@
 import React from "react";
 import { connect } from "react-redux";
-import PodcasterCard from "../../components/PodcasterCard/PodcasterCard";
-import EpisodeList from "../../components/EpisodeList/EpisodeList";
-import Spinner from "../../elements/Spinner/Spinner";
-import EpisodePlayer from "../../components/EpisodePlayer/EpisodePlayer";
+import {
+  PodcasterCard,
+  EpisodePlayer,
+  EpisodeList,
+} from "../../components/PodcasterCard/PodcasterCard";
+import { Spinner } from "../../elements/";
 import getEpisodeList from "../../services/api/getEpisodeList";
 import { useNavigate, Route, Routes, useParams } from "react-router-dom";
 import {
   setEpisodeList,
   setSelectedPodcast,
   setLoading,
-} from "../../services/redux/actions/";
-import { getDifferenceTime } from "../../services/utils";
-import { getSelectedPodcast } from "../../services/utils";
+} from "../../services/redux/actions";
+import { getDifferenceTime, getSelectedPodcast } from "../../services/utils";
+
 const PodcastPage = (props) => {
   const {
     selectedPodcast,
@@ -30,7 +32,7 @@ const PodcastPage = (props) => {
     navigate(`episode/${epId}`);
   };
   const setImageLoaded = () => {
-    setLoading(isLoading.filter((el) => el !== "PodcastPage"));
+    setLoading(isLoading.filter((el) => el !== "PodcastPageImage"));
   };
   const updateEpisodelist = async (id) => {
     const episodeInfo = await getEpisodeList(id).then(
@@ -49,17 +51,15 @@ const PodcastPage = (props) => {
   };
 
   React.useEffect(() => {
-    setLoading([...isLoading, "PodcastPage", "PodcastPageImage"]);
     if (!selectedPodcast) {
       const selectedContent = getSelectedPodcast(podcastList, id);
       setSelectedPodcast(selectedContent);
     }
-
     const myEpisodelist = JSON.parse(localStorage.getItem([id]));
     if (myEpisodelist && getDifferenceTime(myEpisodelist?.date) < 1) {
       setEpisodeList(myEpisodelist.episodeList);
-      setLoading(isLoading.filter((el) => el !== "PodcastPage"));
     } else {
+      setLoading([...isLoading, "PodcastPage", "PodcastPageImage"]);
       updateEpisodelist(id);
     }
   }, []);

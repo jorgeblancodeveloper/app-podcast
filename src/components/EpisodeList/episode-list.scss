@@ -10,7 +10,7 @@
     font-size: 1.23em;
     font-weight: bold;
     filter: $dropShadow;
-    margin-bottom: 1em;
+    margin-bottom: $baseSpacing;
   }
   %row {
     display: grid;

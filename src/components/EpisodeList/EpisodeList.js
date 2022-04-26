@@ -1,6 +1,6 @@
 import React from "react";
 import { millisToMinutesAndSeconds } from "../../services/utils";
-import Spinner from "../../elements/Spinner/Spinner";
+import {Spinner} from "../../elements/";
 const EpisodeList = ({ list, onClickEpisode }) => {
   const [episodeList, setEpisodeList] = React.useState();
 

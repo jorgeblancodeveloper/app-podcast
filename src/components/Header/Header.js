@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Separator } from "../../elements/Separator/Separator";
-import  GlobalLoading  from "../../elements/GlobalLoading/GlobalLoading";
+import  {GlobalLoading, Separator}  from "../../elements/";
 
 const Header = props => {
   return (

@@ -1,18 +1,16 @@
 import React from "react";
-import PodcastPage from "./views/PodcastPage/PodcastPage";
+import { PodcastPage, MainPage, ErrorPage } from "./views/";
 import Header from "./components/Header/Header";
-import MainPage from "./views/MainPage/MainPage";
-import ErrorPage from "./views/ErrorPage/ErrorPage";
-import Spinner from "./elements/Spinner/Spinner";
+import { Spinner } from "./elements/";
 
-import { setPodcastList } from "./services/redux/actions";
+import { setPodcastList, setLoading } from "./services/redux/actions";
 import { getDifferenceTime } from "./services/utils";
 import { connect } from "react-redux";
 import { getPodcastList } from "./services/api/getPodcastList";
 import { Route, BrowserRouter, Routes, Navigate } from "react-router-dom";
 import "./styles/app.scss";
 
-const App = ({ setPodcastList, podcastList }) => {
+const App = ({ setPodcastList, podcastList, isLoading, setLoading }) => {
   const fillPodcastList = async () => {
     const PodcastList = await getPodcastList();
     setPodcastList(PodcastList);
@@ -20,6 +18,7 @@ const App = ({ setPodcastList, podcastList }) => {
       "myPodcastSession",
       JSON.stringify({ date: new Date(), podcastList: PodcastList })
     );
+    setLoading(isLoading.filter((el) => el !== "App"));
   };
 
   React.useEffect(() => {
@@ -27,6 +26,7 @@ const App = ({ setPodcastList, podcastList }) => {
     if (savedSession && getDifferenceTime(savedSession?.date) < 1) {
       setPodcastList(savedSession.podcastList);
     } else {
+      setLoading([...isLoading, "App"]);
       fillPodcastList();
     }
   }, []);
@@ -51,8 +51,10 @@ const App = ({ setPodcastList, podcastList }) => {
 const mapStateToProps = (state) => {
   return {
     podcastList: state.podcastList,
+    isLoading: state.isLoading,
   };
 };
 export default connect(mapStateToProps, {
   setPodcastList,
+  setLoading,
 })(App);

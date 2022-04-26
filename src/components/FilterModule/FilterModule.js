@@ -1,5 +1,5 @@
 import React from "react";
-import { Input } from "../../elements/Input/Input";
+import { Input } from "../../elements/";
 
 export const FilterModule = ({ list, setFiltered }) => {
   const [filteredListLength, setFilteredListLength] = React.useState(0);
@@ -8,7 +8,7 @@ export const FilterModule = ({ list, setFiltered }) => {
     setFilteredListLength(list.length);
   }, []);
   const handleChange = (ev) => {
-    const filtered = list.filter((el) =>
+    const filtered = list.filter(el =>
       el.title.label.toLowerCase().includes(ev.target.value.toLowerCase())
       || el["im:artist"].label.toLowerCase().includes(ev.target.value.toLowerCase())
     );
