@@ -4,7 +4,9 @@ import { MediaPlayer } from "../../elements/";
 const EpisodePlayer = ({ episodeList }) => {
   let { id } = useParams();
   let navigate = useNavigate();
-  const getEpisodeInfoFromId = episodeList.filter(el => el.trackId == id)[0];
+  const getEpisodeInfoFromId = episodeList.filter(
+    (el) => el.trackId == id
+  )[0];
   if (!getEpisodeInfoFromId) {
     navigate(`/error`);
   }

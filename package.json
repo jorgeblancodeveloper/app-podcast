@@ -2,10 +2,9 @@
   "name": "app-podcast",
   "version": "1.0.0",
   "description": "",
-
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "parcel index.html --open",
+    "start": "cross-env  REACT_APP_VERSION='dev' parcel index.html --open",
     "build": "parcel build index.html "
   },
   "keywords": [],
@@ -21,6 +20,7 @@
   "dependencies": {
     "@babel/plugin-proposal-optional-chaining": "^7.16.7",
     "@babel/runtime": "^7.17.9",
+    "cross-env": "^7.0.3",
     "eslint": "^8.14.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.26.0",

@@ -5,16 +5,21 @@ import { Spinner } from "../../elements";
 import getEpisodeList from "../../services/api/getEpisodeList";
 import { useNavigate, Route, Routes, useParams } from "react-router-dom";
 import {
-  setEpisodeList,
+  addEpisodeList,
   setSelectedPodcast,
   setLoading,
 } from "../../services/redux/actions";
-import { getDifferenceTime, getSelectedPodcast } from "../../services/utils";
+import {
+  getDifferenceTime,
+  getPodcastContent,
+  logDebug,
+  saveEpisodeListToLocal,
+} from "../../services/utils";
 
 const PodcastPage = (props) => {
   const {
     selectedPodcast,
-    setEpisodeList,
+    addEpisodeList,
     episodeList,
     setSelectedPodcast,
     podcastList,
@@ -38,29 +43,33 @@ const PodcastPage = (props) => {
     if (episodeInfo.length === 0) {
       navigate(`/error`);
     }
-    const [a, ...rest] = episodeInfo;
-    setEpisodeList(rest);
-    localStorage.setItem(
-      [id],
-      JSON.stringify({ date: new Date(), episodeList: rest })
-    );
+    const [_, ...rest] = episodeInfo;
+    addEpisodeList({ [id]: { list: rest, date: new Date() } });
   };
 
   React.useEffect(() => {
+    saveEpisodeListToLocal(JSON.stringify(episodeList));
+  }, [episodeList]);
+
+  React.useEffect(() => {
     if (!selectedPodcast) {
-      const selectedContent = getSelectedPodcast(podcastList, id);
-      setSelectedPodcast(selectedContent);
+      setSelectedPodcast(getPodcastContent(podcastList, id));
     }
-    const myEpisodelist = JSON.parse(localStorage.getItem([id]));
-    if (myEpisodelist && getDifferenceTime(myEpisodelist?.date) < 1) {
-      setEpisodeList(myEpisodelist.episodeList);
-    } else {
+
+    if (
+      !episodeList ||
+      !episodeList[id] ||
+      getDifferenceTime(episodeList[id]?.date) > 1
+    ) {
+      logDebug("download episode list from server");
       setLoading([...isLoading, "PodcastPage", "PodcastPageImage"]);
       updateEpisodelist(id);
+    } else {
+      logDebug("read episode list  from redux");
     }
   }, []);
 
-  return selectedPodcast?.id ? (
+  return selectedPodcast?.id && episodeList && episodeList[id] ? (
     <div className="podcast-page">
       <PodcasterCard
         id={id}
@@ -74,17 +83,20 @@ const PodcastPage = (props) => {
         <Route
           path="/"
           element={
-            <EpisodeList list={episodeList} onClickEpisode={handleClick} />
+            <EpisodeList
+              list={episodeList[id].list}
+              onClickEpisode={handleClick}
+            />
           }
         />
         <Route
           path="episode/:id"
-          element={<EpisodePlayer episodeList={episodeList} />}
+          element={<EpisodePlayer episodeList={episodeList[id].list} />}
         />
       </Routes>
     </div>
   ) : (
-   <Spinner />
+    <Spinner />
   );
 };
 const mapStateToProps = (state) => {
@@ -96,7 +108,7 @@ const mapStateToProps = (state) => {
   };
 };
 export default connect(mapStateToProps, {
-  setEpisodeList,
+  addEpisodeList,
   setSelectedPodcast,
   setLoading,
 })(PodcastPage);

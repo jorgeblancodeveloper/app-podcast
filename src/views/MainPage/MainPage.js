@@ -1,27 +1,24 @@
 import React from "react";
 import { connect } from "react-redux";
-import {PodcastThumb, FilterModule} from "../../components";
-import { getSelectedPodcast } from "../../services/utils";
+import { PodcastThumb, FilterModule } from "../../components";
+import { getPodcastContent } from "../../services/utils";
 import {
   setSelectedPodcast,
   setFilteredList,
-  setEpisodeList,
 } from "../../services/redux/actions";
 import { useNavigate } from "react-router-dom";
-
 
 const MainPage = ({
   podcastList,
   filteredList,
   setSelectedPodcast,
   setFilteredList,
-  setEpisodeList,
 }) => {
   const [thumbList, setThumbList] = React.useState([]);
   let navigate = useNavigate();
 
   const goPodcast = (id) => {
-    const selectedContent = getSelectedPodcast(podcastList, id);
+    const selectedContent = getPodcastContent(podcastList, id);
     setSelectedPodcast(selectedContent);
     navigate(`/podcast/${id}`);
   };
@@ -29,9 +26,6 @@ const MainPage = ({
   const handleFilterList = (filteredData) => {
     setFilteredList(filteredData);
   };
-  React.useEffect(() => {
-    setEpisodeList([]);
-  }, []);
   React.useEffect(() => {
     setThumbList(
       filteredList.length ? (
@@ -75,5 +69,4 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps, {
   setSelectedPodcast,
   setFilteredList,
-  setEpisodeList,
 })(MainPage);

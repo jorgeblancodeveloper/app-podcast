@@ -2,6 +2,7 @@ export const SET_PODCAST_LIST = "SET_PODCAST_LIST";
 export const SET_FILTERED_LIST = "SET_FILTERED_LIST";
 export const SET_SELECTED_PODCAST = "SET_SELECTED_PODCAST";
 export const SET_EPISODE_LIST = "SET_EPISODE_LIST";
+export const ADD_EPISODE_LIST = "ADD_EPISODE_LIST";
 export const SET_SELECTED_EPISODE = "SET_SELECTED_EPISODE";
 export const SET_LOADING = "SET_LOADING";
 
@@ -31,7 +32,12 @@ export const setEpisodeList = (data) => {
     payload: data,
   };
 };
-
+export const addEpisodeList = (data) => {
+  return {
+    type: ADD_EPISODE_LIST,
+    payload: data,
+  };
+};
 export const setLoading = (data) => {
   return {
     type: SET_LOADING,
