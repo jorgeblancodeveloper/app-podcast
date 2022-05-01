@@ -3,7 +3,9 @@ import { millisToMinutesAndSeconds } from "../../services/utils";
 import {Spinner} from "../../elements/";
 const EpisodeList = ({ list, onClickEpisode }) => {
   const [episodeList, setEpisodeList] = React.useState();
-
+  React.useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
   React.useEffect(() => {
     if (list) {
       setEpisodeList(

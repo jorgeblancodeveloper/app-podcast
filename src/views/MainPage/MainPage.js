@@ -8,28 +8,23 @@ import {
 } from "../../services/redux/actions";
 import { useNavigate } from "react-router-dom";
 
-const MainPage = ({
-  podcastList,
-  filteredList,
-  setSelectedPodcast,
-  setFilteredList,
-}) => {
+const MainPage = (props) => {
   const [thumbList, setThumbList] = React.useState([]);
   let navigate = useNavigate();
 
   const goPodcast = (id) => {
-    const selectedContent = getPodcastContent(podcastList, id);
-    setSelectedPodcast(selectedContent);
+    const selectedContent = getPodcastContent(props.podcastList, id);
+    props.setSelectedPodcast(selectedContent);
     navigate(`/podcast/${id}`);
   };
 
   const handleFilterList = (filteredData) => {
-    setFilteredList(filteredData);
+    props.setFilteredList(filteredData);
   };
   React.useEffect(() => {
     setThumbList(
-      filteredList.length ? (
-        filteredList.map((e, i) => {
+      props.filteredList.length ? (
+        props.filteredList.map((e, i) => {
           return (
             <PodcastThumb
               onClick={() => goPodcast(e.id.attributes["im:id"])}
@@ -44,13 +39,13 @@ const MainPage = ({
         <div>No podcasts finded...</div>
       )
     );
-  }, [filteredList]);
+  }, [props.filteredList]);
 
   return (
     <>
-      {podcastList?.feed?.entry.length && (
+      {props.podcastList?.feed?.entry.length && (
         <FilterModule
-          list={podcastList?.feed?.entry}
+          list={props.podcastList?.feed?.entry}
           setFiltered={handleFilterList}
         />
       )}

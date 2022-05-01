@@ -7,7 +7,8 @@ import { useNavigate, Route, Routes, useParams } from "react-router-dom";
 import {
   addEpisodeList,
   setSelectedPodcast,
-  setLoading,
+  addLoading,
+  removeLoading
 } from "../../services/redux/actions";
 import {
   getDifferenceTime,
@@ -17,15 +18,6 @@ import {
 } from "../../services/utils";
 
 const PodcastPage = (props) => {
-  const {
-    selectedPodcast,
-    addEpisodeList,
-    episodeList,
-    setSelectedPodcast,
-    podcastList,
-    setLoading,
-    isLoading,
-  } = props;
   let { id } = useParams();
   let navigate = useNavigate();
 
@@ -33,50 +25,52 @@ const PodcastPage = (props) => {
     navigate(`episode/${epId}`);
   };
   const setImageLoaded = () => {
-    setLoading(isLoading.filter((el) => el !== "PodcastPageImage"));
+    props.removeLoading("PodcastPageImage");
   };
   const updateEpisodelist = async (id) => {
     const episodeInfo = await getEpisodeList(id).then(
       (e) => JSON.parse(e.contents).results
     );
-    setLoading(isLoading.filter((el) => el !== "PodcastPage"));
+    props.removeLoading("PodcastPage");
     if (episodeInfo.length === 0) {
       navigate(`/error`);
     }
     const [_, ...rest] = episodeInfo;
-    addEpisodeList({ [id]: { list: rest, date: new Date() } });
+    props.addEpisodeList({ [id]: { list: rest, date: new Date() } });
   };
 
   React.useEffect(() => {
-    saveEpisodeListToLocal(JSON.stringify(episodeList));
-  }, [episodeList]);
+    saveEpisodeListToLocal(JSON.stringify(props.episodeList));
+  }, [props.episodeList]);
 
   React.useEffect(() => {
-    if (!selectedPodcast) {
-      setSelectedPodcast(getPodcastContent(podcastList, id));
+    if (!props.selectedPodcast) {
+      props.setSelectedPodcast(getPodcastContent(props.podcastList, id));
     }
 
     if (
-      !episodeList ||
-      !episodeList[id] ||
-      getDifferenceTime(episodeList[id]?.date) > 1
+      !props.episodeList ||
+      !props.episodeList[id] ||
+      getDifferenceTime(props.episodeList[id]?.date) > 1
     ) {
       logDebug("download episode list from server");
-      setLoading([...isLoading, "PodcastPage", "PodcastPageImage"]);
+      props.addLoading(["PodcastPage", "PodcastPageImage"]);
       updateEpisodelist(id);
     } else {
-      logDebug("read episode list  from redux");
+      logDebug("Read episode list  from redux");
     }
   }, []);
 
-  return selectedPodcast?.id && episodeList && episodeList[id] ? (
+  return props.selectedPodcast?.id &&
+    props.episodeList &&
+    props.episodeList[id] ? (
     <div className="podcast-page">
       <PodcasterCard
         id={id}
-        title={selectedPodcast["im:name"].label}
-        autor={selectedPodcast["im:artist"].label}
-        description={selectedPodcast.summary.label}
-        image={selectedPodcast["im:image"][2].label}
+        title={props.selectedPodcast["im:name"].label}
+        autor={props.selectedPodcast["im:artist"].label}
+        description={props.selectedPodcast.summary.label}
+        image={props.selectedPodcast["im:image"][2].label}
         setImageLoaded={setImageLoaded}
       />
       <Routes>
@@ -84,14 +78,14 @@ const PodcastPage = (props) => {
           path="/"
           element={
             <EpisodeList
-              list={episodeList[id].list}
+              list={props.episodeList[id].list}
               onClickEpisode={handleClick}
             />
           }
         />
         <Route
           path="episode/:id"
-          element={<EpisodePlayer episodeList={episodeList[id].list} />}
+          element={<EpisodePlayer episodeList={props.episodeList[id].list} />}
         />
       </Routes>
     </div>
@@ -110,5 +104,6 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps, {
   addEpisodeList,
   setSelectedPodcast,
-  setLoading,
+  addLoading,
+  removeLoading
 })(PodcastPage);

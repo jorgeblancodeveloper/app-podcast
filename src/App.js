@@ -5,14 +5,14 @@ import { Spinner } from "./elements/";
 
 import {
   setPodcastList,
-  setLoading,
+  addLoading,
+  removeLoading,
   setEpisodeList,
 } from "./services/redux/actions";
 import {
   getDifferenceTime,
   logDebug,
   savePodcastListToLocal,
-  saveEpisodeListToLocal,
   readEpisodeListFromLocal,
   readPodcastListFromLocal,
 } from "./services/utils";
@@ -21,22 +21,15 @@ import { getPodcastList } from "./services/api/getPodcastList";
 import { Route, BrowserRouter, Routes, Navigate } from "react-router-dom";
 import "./styles/app.scss";
 
-const App = ({
-  setPodcastList,
-  podcastList,
-  isLoading,
-  setLoading,
-  setEpisodeList,
-}) => {
+const App = (props) => {
   const fillPodcastList = async () => {
     const rawPodcastList = await getPodcastList();
     const loadDate = new Date();
-    setPodcastList({ date: loadDate, feed: rawPodcastList.feed });
+    props.setPodcastList({ date: loadDate, feed: rawPodcastList.feed });
     savePodcastListToLocal(
       JSON.stringify({ date: loadDate, feed: rawPodcastList.feed })
     );
-
-    setLoading(isLoading.filter((el) => el !== "App"));
+    removeLoading("App");
   };
 
   React.useEffect(() => {
@@ -46,17 +39,17 @@ const App = ({
       getDifferenceTime(localPodcastList?.date) < 1
     ) {
       logDebug("Read podcastList from local");
-      setPodcastList(localPodcastList);
+      props.setPodcastList(localPodcastList);
     } else {
-      setLoading([...isLoading, "App"]);
+      props.addLoading([...props.isLoading, "App"]);
       logDebug("Read podcastList from server");
       fillPodcastList();
     }
 
-    setEpisodeList(readEpisodeListFromLocal());
+    props.setEpisodeList(readEpisodeListFromLocal());
   }, []);
 
-  return podcastList ? (
+  return props.podcastList ? (
     <div className="app">
       <BrowserRouter>
         <Header>Podcaster</Header>
@@ -81,6 +74,7 @@ const mapStateToProps = (state) => {
 };
 export default connect(mapStateToProps, {
   setPodcastList,
-  setLoading,
+  addLoading,
   setEpisodeList,
+  removeLoading,
 })(App);
