@@ -1,10 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
 
-const GlobalLoading = ({ isLoading }) => {
+const GlobalLoading = (props) => {
   return (
     <>
-      <div className={`global-loading${isLoading.length ? "--active" : ""}`} />
+      <div className={`global-loading${props.isLoading.length ? "--active" : ""}`} />
     </>
   );
 };

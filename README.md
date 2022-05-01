@@ -16,6 +16,8 @@ Open [http://localhost:1234](http://localhost:1234) to view it in your browser.
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
 
+Will check time in minutes instead days to refresh data!!
+
 
 ### `npm run build`
 
