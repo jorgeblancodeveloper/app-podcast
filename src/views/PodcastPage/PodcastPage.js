@@ -8,7 +8,7 @@ import {
   addEpisodeList,
   setSelectedPodcast,
   addLoading,
-  removeLoading
+  removeLoading,
 } from "../../services/redux/actions";
 import {
   getDifferenceTime,
@@ -24,9 +24,7 @@ const PodcastPage = (props) => {
   const handleClick = (epId) => {
     navigate(`episode/${epId}`);
   };
-  const setImageLoaded = () => {
-    props.removeLoading("PodcastPageImage");
-  };
+
   const updateEpisodelist = async (id) => {
     const episodeInfo = await getEpisodeList(id).then(
       (e) => JSON.parse(e.contents).results
@@ -53,7 +51,7 @@ const PodcastPage = (props) => {
       !props.episodeList[id] ||
       getDifferenceTime(props.episodeList[id]?.date) > 1
     ) {
-      logDebug("download episode list from server");
+      logDebug("Download episode list from server");
       props.addLoading(["PodcastPage", "PodcastPageImage"]);
       updateEpisodelist(id);
     } else {
@@ -71,7 +69,7 @@ const PodcastPage = (props) => {
         autor={props.selectedPodcast["im:artist"].label}
         description={props.selectedPodcast.summary.label}
         image={props.selectedPodcast["im:image"][2].label}
-        setImageLoaded={setImageLoaded}
+        setImageLoaded={() => props.removeLoading("PodcastPageImage")}
       />
       <Routes>
         <Route
@@ -105,5 +103,5 @@ export default connect(mapStateToProps, {
   addEpisodeList,
   setSelectedPodcast,
   addLoading,
-  removeLoading
+  removeLoading,
 })(PodcastPage);

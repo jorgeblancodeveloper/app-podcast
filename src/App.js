@@ -35,7 +35,7 @@ const App = (props) => {
   React.useEffect(() => {
     const localPodcastList = readPodcastListFromLocal();
     if (
-      (localPodcastList && Object.keys(localPodcastList).length > 0) ||
+      (localPodcastList && Object.keys(localPodcastList).length > 0) &&
       getDifferenceTime(localPodcastList?.date) < 1
     ) {
       logDebug("Read podcastList from local");
@@ -45,7 +45,6 @@ const App = (props) => {
       logDebug("Read podcastList from server");
       fillPodcastList();
     }
-
     props.setEpisodeList(readEpisodeListFromLocal());
   }, []);
 
