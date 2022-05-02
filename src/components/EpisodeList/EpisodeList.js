@@ -40,7 +40,7 @@ const EpisodeList = ({ list, onClickEpisode }) => {
       {list.length ? (
         <>
           <div className="episode-list__header">
-            {`Episodes: ${list && list.length}`}
+            {`Episodes: ${list.length}`}
           </div>
           <div className="episode-list__table">
             <div className="episode-list__row-header">
