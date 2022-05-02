@@ -13,10 +13,12 @@ In the project directory, you can run:
 Runs the app in the development mode.\
 Open [http://localhost:1234](http://localhost:1234) to view it in your browser.
 
+**WILL CHECK TIME IN MINUTES INSTEAD DAYS TO REFRESH DATA IN DEV MODE!!**
+
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
 
-Will check time in minutes instead days to refresh data!!
+
 
 
 ### `npm run build`
