@@ -2,7 +2,7 @@
 
 Demo React skills Jorge Blanco
 
-Best 100 podcast from iTunes, React/Redux made.
+Demo ejercicio React/Redux, player para navegar y escuchar los 100 mejores podcast segun la lista de Itunes
 
 ## Available Scripts
 
