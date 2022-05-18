@@ -8,6 +8,7 @@ const EpisodePlayer = ({ episodeList }) => {
   React.useEffect(() => {
     var element = document.querySelector(".episode-player");
     element.scrollIntoView({ behavior: "smooth", block: "end" });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (!getEpisodeInfoFromId) {

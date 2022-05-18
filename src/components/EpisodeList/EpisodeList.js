@@ -1,17 +1,18 @@
 import React from "react";
 import { millisToMinutesAndSeconds } from "../../services/utils";
-import {Spinner} from "../../elements/";
+import { Spinner } from "../../elements/";
+
 const EpisodeList = ({ list, onClickEpisode }) => {
   const [episodeList, setEpisodeList] = React.useState();
   React.useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
   React.useEffect(() => {
     if (list) {
       setEpisodeList(
         list.map((el, i) => (
           <div
-            className="episode-list__row is-animated"
+            className="episode-list__row u-animated"
             key={el + i}
             onClick={() => onClickEpisode(el.trackId)}
           >
@@ -37,23 +38,23 @@ const EpisodeList = ({ list, onClickEpisode }) => {
   return (
     <div className="episode-list">
       <div className="episode-list__wrapper">
-      {list.length ? (
-        <>
-          <div className="episode-list__header">
-            {`Episodes: ${list.length}`}
-          </div>
-          <div className="episode-list__table">
-            <div className="episode-list__row-header">
-              <div style={{ flex: "1" }}> Title</div>
-              <div>Date</div>
-              <div>Duration</div>
+        {list.length ? (
+          <>
+            <div className="episode-list__header">
+              {`Episodes: ${list.length}`}
             </div>
-            {episodeList}
-          </div>
-        </>
-      ) : (
-        <Spinner />
-      )}
+            <div className="episode-list__table">
+              <div className="episode-list__row-header">
+                <div style={{ flex: "1" }}> Title</div>
+                <div>Date</div>
+                <div>Duration</div>
+              </div>
+              {episodeList}
+            </div>
+          </>
+        ) : (
+          <Spinner />
+        )}
       </div>
     </div>
   );

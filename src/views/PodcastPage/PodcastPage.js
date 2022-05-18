@@ -7,8 +7,6 @@ import { useNavigate, Route, Routes, useParams } from "react-router-dom";
 import {
   addEpisodeList,
   setSelectedPodcast,
-  addLoading,
-  removeLoading,
 } from "../../services/redux/actions";
 import {
   getDifferenceTime,
@@ -29,7 +27,6 @@ const PodcastPage = (props) => {
     const episodeInfo = await getEpisodeList(id).then(
       (e) => JSON.parse(e.contents).results
     );
-    props.removeLoading("PodcastPage");
     if (episodeInfo.length === 0) {
       navigate(`/error`);
     }
@@ -52,7 +49,6 @@ const PodcastPage = (props) => {
       getDifferenceTime(props.episodeList[id]?.date) > 1
     ) {
       logDebug("Download episode list from server");
-      props.addLoading(["PodcastPage", "PodcastPageImage"]);
       updateEpisodelist(id);
     } else {
       logDebug("Read episode list  from redux");
@@ -69,7 +65,6 @@ const PodcastPage = (props) => {
         autor={props.selectedPodcast["im:artist"].label}
         description={props.selectedPodcast.summary.label}
         image={props.selectedPodcast["im:image"][2].label}
-        setImageLoaded={() => props.removeLoading("PodcastPageImage")}
       />
       <Routes>
         <Route
@@ -96,12 +91,9 @@ const mapStateToProps = (state) => {
     selectedPodcast: state.selectedPodcast,
     episodeList: state.episodeList,
     podcastList: state.podcastList,
-    isLoading: state.isLoading,
   };
 };
 export default connect(mapStateToProps, {
   addEpisodeList,
   setSelectedPodcast,
-  addLoading,
-  removeLoading,
 })(PodcastPage);

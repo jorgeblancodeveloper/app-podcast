@@ -5,7 +5,7 @@ import Header from "./Header/Header";
 import PodcasterCard from "./PodcasterCard/PodcasterCard";
 import PodcastThumb from "./PodcastThumb/PodcastThumb";
 
-export  {
+export {
   EpisodeList,
   EpisodePlayer,
   FilterModule,

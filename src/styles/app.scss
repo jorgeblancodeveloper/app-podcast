@@ -18,20 +18,20 @@ $baseSpacing: 16px;
   font-size: 0.9em;
 }
 
-// Utilitys
-
-.is-animated {
-  transition: $transition !important;
-}
-
 @import "fonts";
 @import "reset";
 @import "layout";
 @import "modules";
 @import "anims";
 
+// utilities
+.is-full-width {
+  width: 100%;
+}
+.u-animated {
+  transition: $transition !important;
+}
 // Pages
-
 .app {
   background: $background;
   padding: $basePadding;

@@ -5,8 +5,6 @@ import { Spinner } from "./elements/";
 
 import {
   setPodcastList,
-  addLoading,
-  removeLoading,
   setEpisodeList,
 } from "./services/redux/actions";
 import {
@@ -29,7 +27,6 @@ const App = (props) => {
     savePodcastListToLocal(
       JSON.stringify({ date: loadDate, feed: rawPodcastList.feed })
     );
-    removeLoading("App");
   };
 
   React.useEffect(() => {
@@ -41,7 +38,6 @@ const App = (props) => {
       logDebug("Read podcastList from local");
       props.setPodcastList(localPodcastList);
     } else {
-      props.addLoading([...props.isLoading, "App"]);
       logDebug("Read podcastList from server");
       fillPodcastList();
     }
@@ -53,10 +49,10 @@ const App = (props) => {
       <BrowserRouter>
         <Header>Podcaster</Header>
         <Routes>
-          <Route path="podcast/:id/*" element={<PodcastPage />} />
+          <Route path="/podcast/:id/*" element={<PodcastPage />} />
           <Route path="/" element={<MainPage />} />
-          <Route path="error" element={<ErrorPage />} />
-          <Route path="/*" element={<Navigate replace to="/" />}></Route>
+          <Route path="/error" element={<ErrorPage />} />
+          <Route path="/*" element={<Navigate replace to="./" />}></Route>
         </Routes>
       </BrowserRouter>
     </div>
@@ -68,12 +64,9 @@ const App = (props) => {
 const mapStateToProps = (state) => {
   return {
     podcastList: state.podcastList,
-    isLoading: state.isLoading,
   };
 };
 export default connect(mapStateToProps, {
   setPodcastList,
-  addLoading,
   setEpisodeList,
-  removeLoading,
 })(App);

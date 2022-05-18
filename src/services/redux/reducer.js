@@ -4,14 +4,11 @@ import {
   SET_SELECTED_PODCAST,
   SET_EPISODE_LIST,
   ADD_EPISODE_LIST,
-  ADD_LOADING,
-  REMOVE_LOADING,
 } from "./actions";
 
 export const INITIAL_STATE = {
   filteredList: {},
   episodeList: {},
-  isLoading: [],
 };
 
 const reducer = (state = INITIAL_STATE, action) => {
@@ -42,16 +39,6 @@ const reducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         episodeList: { ...state.episodeList, ...action.payload },
-      };
-    case ADD_LOADING:
-      return {
-        ...state,
-        isLoading: [... state.isLoading, ...action.payload],
-      };
-    case REMOVE_LOADING:
-      return {
-        ...state,
-        isLoading: state.isLoading.filter((el) => el !== action.payload) ,
       };
     default:
       return state;
